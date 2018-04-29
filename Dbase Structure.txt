@@ -1,0 +1,25 @@
+Schema: truck_rentals
+
+Tables : 
+
+TRUCKS (truck_id, name, category, description, capacity, cost_of_rent)
+
+USERS ( user_id, fname, mname, lname, address, email_add, phone_number, date_registered, username, password, user_type, status)
+
+RENT_TRUCK (owner_id, truck_id, status, times_rented)
+
+	FK owner_id references USERS nulls not allowed
+		Delete restrict, Update cascade
+	   truck_id references TRUCKS nulls not allowed
+		Delete restrict, Update cascade
+
+TRANSACTIONS (transac_id, truck_id, client_id, admin_id, request_accepted, number_of_days, rent_start, rent_end, status)
+
+	FK truck_id references TRUCKS nulls not allowed
+		Delete restrict, Update Cascade
+	   client_id references USERS nulls not allowed
+		Delete restrict, Update Cascade
+	   admmin_id references USERS nulls not allowed
+	   	Delete restrict, Update Cascade
+
+ACCOUNTS (user_id, a
