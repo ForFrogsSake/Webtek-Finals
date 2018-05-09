@@ -112,6 +112,7 @@ CREATE TABLE `provider` (
   `provider_id` int(10) NOT NULL,
   `bank_type` varchar(45) NOT NULL,
   `bank_account_number` varchar(45) NOT NULL,
+  `rating` decimal(1,1) DEFAULT NULL,
   PRIMARY KEY (`provider_id`),
   UNIQUE KEY `bank_account_number_UNIQUE` (`bank_account_number`),
   UNIQUE KEY `user_id_UNIQUE` (`provider_id`),
@@ -247,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-09 21:26:20
+-- Dump completed on 2018-05-09 22:05:09
