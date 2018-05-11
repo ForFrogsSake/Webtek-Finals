@@ -1,0 +1,44 @@
+.deny{
+    color: crimson;
+    font-size: 30px;
+    font-family: sans-serif;
+    transition: 0.2s;
+    background-image: url(../images/deny.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.deny:hover{
+    background-image: url(../images/deny-hover.png);
+}
+
+.accept{
+    color: forestgreen;
+    font-size: 20px;
+    font-family: sans-serif;
+    transition: 0.2s;
+    background-image: url(../images/accept.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.accept:hover{
+    background-image: url(../images/accept-hover.png);
+}
+
+.button{
+    background-color: transparent;
+    width: 60%;
+    height: 100%;
+    border:none;
+}
+
+.button:focus{
+    outline: none;
+}
+
+.col-1 {
+    padding: 0px;
+}
