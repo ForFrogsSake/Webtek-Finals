@@ -35,6 +35,10 @@
     border:none;
 }
 
+.button:hover{
+    cursor: pointer;
+}
+
 .button:focus{
     outline: none;
 }
