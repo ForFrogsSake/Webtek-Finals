@@ -5,8 +5,10 @@
  */
 package javafiles;
 
+import dbase.connection.DBConnect;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,58 +17,92 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "registerClient", urlPatterns = {"/registerClient"})
 public class registerClient extends HttpServlet {
-
+ 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+      
         response.setStatus(HttpServletResponse.SC_OK);
         response.setHeader("Content-Type", "text/html");
         // or, alternatively..
         //   response.setContentType("text/html");
-        
+
         PrintWriter out = response.getWriter();
-        
+
         out.println("<!DOCTYPE html>");
-        out.println("<html lang='en'>");
+        out.println("<html lang=\"en\">");
         out.println("<head>");
-        out.println("<link rel=\"icon\" href=\"/pictures/LOGO.png\">");
-        out.println("<meta charset=\"UTF-8\">");
-        out.println("<title>Sign-up | Truck Rentals</title>");
-        out.println("<style>");
-        out.println("body {");
-        out.println(" background-color: rgba(202, 207, 210, 0.7);");
-        out.println("}");
-        out.println("#maincontainer {");
-        out.println("background-color: rgba(211, 84, 0, 0.5);");
-        out.println("}");
-        out.println("</style>");
+        out.println("<title>REGISTER ACCOUNT</title>");
+        out.println("<meta charset=\"utf-8\">");
+        out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+        out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css\">");
+        out.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>");
+        out.println("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js\"></script>");
+        out.println("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js\"></script>");
         out.println("</head>");
-        out.println("<body>");
-        out.println("<div id=\"maincontainer\">");
-        out.println("<form action=\"truckRentalsClient/registerClient\" method=\"GET\"><!--AWAN PAY-->");
+        out.println("<body style=\"background-color:#F8F9F9\">");
         out.println("<div class=\"container\">");
-        out.println("<h1>Register</h1>");
-        out.println("<h4>Please fill in the needed details to create your account.</h4>");
-        out.println("<hr>");
-        out.println("<label for=\"email\"><b>Email</b></label>");
-        out.println("<input type=\"text\" placeholder=\"Enter Email\" name=\"email\" required>");
-        out.println("<label for=\"psw\"><b>Password</b></label>");
-        out.println("<input type=\"password\" placeholder=\"Enter Password\" name=\"pass\" required>");
-        out.println("<label for=\"psw-repeat\"><b>Repeat Password</b></label>");
-        out.println("<input type=\"password\" placeholder=\"Repeat Password\" name=\"pass-repeat\" required>");
-        out.println("<hr>");
-        out.println("<p>By creating an account you agree to our <a href=\"#\">Terms & Privacy</a>.</p>");
-        out.println("<button type=\"submit\" class=\"registerbtn\">Register</button>");
+        out.println("<div class=\"card card-register mx-auto mt-4\">");
+        out.println("<!--card header-->");
+        out.println("<div class=\"card-header\" style=\"background-color:#FDEBD0\" >Register an Account</div>");
+        out.println("<div class=\"card-body\">");
+        out.println("<!--inputs-->");
+        out.println("<form>");
+        out.println("<div class=\"form-group\">");
+        out.println("<div class=\"form-row\">");
+        out.println("<div class=\"col-md-6\">");
+        out.println("<label for=\"exampleInputName\">First name</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputName\" type=\"text\" aria-describedby=\"nameHelp\" placeholder=\"Enter first name\">");
         out.println("</div>");
-        out.println("<div class=\"container signin\">");
-        out.println("<p>Already have an account? <a href=\"#\">Sign in</a>.</p><!--LOGINpAGE NEEDED-->");
+        out.println("<div class=\"col-md-6\">");
+        out.println("<label for=\"exampleInputLastName\">Last name</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputLastName\" type=\"text\" aria-describedby=\"nameHelp\" placeholder=\"Enter last name\">");
         out.println("</div>");
+        out.println("</div>");
+        out.println("</div>");
+        out.println("<div class=\"form-group\">");
+        out.println("<label for=\"exampleInputEmail1\">User name</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputUserName\" type=\"username\" aria-describedby=\"nameHelp\" placeholder=\"Enter username\">");
+        out.println("</div>");
+        out.println("<div class=\"form-group\">");
+        out.println("<label for=\"exampleInputEmail1\">Email address</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputEmail1\" type=\"email\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">");
+        out.println("</div>");
+        out.println("<div class=\"form-group\">");
+        out.println("<label for=\"exampleInputEmail1\">Phone number</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputNumber\" type=\"number\" aria-describedby=\"numberHelp\" placeholder=\"Enter phone number\">");
+        out.println("</div>");
+        out.println("<div class=\"form-group\">");
+        out.println("<div class=\"form-row\">");
+        out.println("<div class=\"col-md-6\">");
+        out.println("<label for=\"exampleInputPassword1\">Password</label>");
+        out.println("<input class=\"form-control\" id=\"exampleInputPassword1\" type=\"password\" placeholder=\"Password\">");
+        out.println("</div>");
+        out.println("<div class=\"col-md-6\">");
+        out.println("<label for=\"exampleConfirmPassword\">Confirm password</label>");
+        out.println("<input class=\"form-control\" id=\"exampleConfirmPassword\" type=\"password\" placeholder=\"Confirm password\">");
+        out.println("</div>");
+        out.println("</div>");
+        out.println("</div>");
+        out.println("<!--register button-->");
+        out.println("<a class=\"btn btn-warning btn-block\" href=\"login.html\">Register</a>");
         out.println("</form>");
+        out.println("<div class=\"text-center\">");
+        out.println("<a class=\"d-block small mt-4\" href=\"login.html\">Login Page</a>");
         out.println("</div>");
+        out.println("</div>");
+        out.println("</div>");
+        out.println("</div>");
+        out.println("<!-- Bootstrap core JavaScript-->");
+        out.println("<script src=\"vendor/jquery/jquery.min.js\"></script>");
+        out.println("<script src=\"vendor/bootstrap/js/bootstrap.bundle.min.js\"></script>");
+        out.println("<!-- Core plugin JavaScript-->");
+        out.println("<script src=\"vendor/jquery-easing/jquery.easing.min.js\"></script>");
         out.println("</body>");
         out.println("</html>");
-     
+
         out.close();
+
     }
 }
