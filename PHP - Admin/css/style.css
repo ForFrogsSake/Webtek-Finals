@@ -10,7 +10,7 @@
 }
 
 .deny:hover{
-    background-image: url(../images/deny-hover.png);
+    filter: brightness(120%) saturate(120%);
 }
 
 .accept{
@@ -25,7 +25,7 @@
 }
 
 .accept:hover{
-    background-image: url(../images/accept-hover.png);
+    filter: brightness(120%) saturate(120%);
 }
 
 .button{
