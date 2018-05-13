@@ -101,7 +101,8 @@ function display($row, $status){
                         <span class=\"text-primary\">". $row["client"] ."</span> 
                         <span  class=\"text-secondary\">for: </span>". $row["number_of_days"] ." days <br>
                         <span class=\"text-secondary\">from </span> ". $row["rent_start_day"] ." 
-                        <span class=\"text-secondary\">to</span> ". $row["rent_end_day"] ."
+                        <span class=\"text-secondary\">to</span> ". $row["rent_end_day"] ." <br>
+                        <span  class=\"text-secondary\">with a total cost of </span> <span class=\"text-success\">&#x20b1;". $row["number_of_days"] * $row["cost"] ."</span>
                     </small> <br> 
                     <small>
                         <span class=\"text-secondary\">Request Status: </span> 
