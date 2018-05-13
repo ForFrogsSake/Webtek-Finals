@@ -92,7 +92,7 @@ function display($row, $status){
     echo "<div class=\"col-md-6\">
             <div class=\"content\">
                 <p>
-                    <strong>". $row["transaction_id"] ."</strong> | 
+                    <strong>ID ". $row["transaction_id"] ."</strong> | 
                     <span class=\"text-info\">". $row["name"] ."</span>
                     <span class=\"text-success\">(&#x20b1;". $row["cost"] ."/day)</span> leased by
                     <span class=\"text-warning\">". $row["provider"] ."</span><br>
