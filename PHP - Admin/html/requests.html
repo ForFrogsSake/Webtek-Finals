@@ -4,36 +4,18 @@
         <title>Truck Rentals</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../images/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-        <script>
-           $(document).ready(function(){
-               $.post("../php/database.php",
-               {
-                   type: "client",
-               },
-               function(data){
-                   $("#client").html(data);
-               });
-               
-               
-               $.post("../php/database.php",
-               {
-                   type: "provider",
-               },
-               function(data){
-                   $("#provider").html(data);
-               });
-           });
-        </script>
+        <script src="../script/request.js"></script>
     </head>
 
     <body style="background-color: beige">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a class="navbar-brand" href="../index.html">Truck Rentals</a>
+            <a class="navbar-brand" href="../index.html">Truck Rentals <img src="../images/truck.png" width="25px" height="25px"></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -56,16 +38,18 @@
                 </ul>
             </div>
         </nav>
+        
+        <div class="jumbotron text-center" style="background-image: url(../images/cityscape.png); background-position: center; background-size: cover; background-repeat: no-repeat; background-color: #ffffff">
+        <h2 id="username"></h2>
+        <small>This is your dashboard</small>
+        </div>
         <div class="container-fluid" style="padding: 20px">
-            <div class="container-fluid">
-                <h4>Account Requests</h4>
-            </div>
             <div class="row">
                 <div class="col">
                     <div class="card">
                         <div class="card-header"><h5 class="text-primary">Clients</h5></div>
                         <div class="card-body" id="client">
-                            <!-- Content to be Generated -->
+                            <small id="clientSmall"></small>
                             
                         </div>
                     </div>
@@ -74,6 +58,7 @@
                     <div class="card">
                         <div class="card-header"><h5 class="text-warning">Service Providers</h5></div>
                         <div class="card-body" id="provider">
+                            <small id="providerSmall"></small>
                             
                         </div>
                     </div>

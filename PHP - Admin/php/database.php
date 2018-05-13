@@ -11,11 +11,26 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$type = "'".$_POST["type"]."'";
-$sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province 
-        FROM users JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending'";
-$result = $conn->query($sql);
-displayInfo($result);
+switch ($_POST["function"]) {
+    case "display":
+        $type = "'".$_POST["type"]."'";
+        $sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province FROM users JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending'";
+        $result = $conn->query($sql);
+        displayInfo($result);
+        break;
+    case "deny":
+        $username = "'".$_POST["username"]."'";
+        $sql = "UPDATE users SET request_status = 'denied' WHERE username = ".$username;
+        $conn->query($sql);
+        break;
+    case "accept":
+        $username = "'".$_POST["username"]."'";
+        $sql = "UPDATE users SET request_status = 'accepted', status = 'enabled' WHERE username = ".$username;
+        $conn->query($sql);
+        break;
+}
+
+
 
 
 function displayInfo($result){
@@ -39,7 +54,7 @@ function displayInfo($result){
                 </div>";
         }
     } else {
-        echo "0 results";
+        echo "<small>There are no account requests</small>";
     }
 }
 
