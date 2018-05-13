@@ -19,7 +19,7 @@ switch ($_POST["function"]) {
         displayRequests($result);
         break;
     case "transactions":
-        $sql = "SELECT transaction_id, name, c.username client, p.username provider, transactions.request_status, number_of_days, rent_start_day, rent_end_day FROM transactions INNER JOIN users c ON client_id = c.user_id INNER JOIN users p ON provider_id = p.user_id INNER JOIN trucks USING (truck_id);";
+        $sql = "SELECT transaction_id, name, c.username client, p.username provider, transactions.request_status, number_of_days, rent_start_day, rent_end_day, cost FROM transactions INNER JOIN users c ON client_id = c.user_id INNER JOIN users p ON provider_id = p.user_id INNER JOIN trucks USING (truck_id);";
         $result = $conn->query($sql);
         displayTransactions($result);
         break;
@@ -93,11 +93,13 @@ function display($row, $status){
             <div class=\"content\">
                 <p>
                     <strong>". $row["transaction_id"] ."</strong> | 
-                    <span class=\"text-info\">". $row["name"] ."</span> | 
-                    <span class=\"text-primary\">". $row["client"] ."</span> | 
+                    <span class=\"text-info\">". $row["name"] ."</span>
+                    <span class=\"text-success\">(&#x20b1;". $row["cost"] ."/day)</span> leased by
                     <span class=\"text-warning\">". $row["provider"] ."</span><br>
                     <small>
-                        <span class=\"text-secondary\">Number of days: </span> ". $row["number_of_days"] ." | 
+                        <span class=\"text-secondary\">To be rented by </span> 
+                        <span class=\"text-primary\">". $row["client"] ."</span> 
+                        <span  class=\"text-secondary\">for: </span>". $row["number_of_days"] ." days <br>
                         <span class=\"text-secondary\">from </span> ". $row["rent_start_day"] ." 
                         <span class=\"text-secondary\">to</span> ". $row["rent_end_day"] ."
                     </small> <br> 
