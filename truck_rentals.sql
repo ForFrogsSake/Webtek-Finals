@@ -44,6 +44,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (1,'82',NULL,'Ilog Baliwag','Quezon',NULL,'Nueva Ecija'),(2,'83',NULL,'Salt',NULL,NULL,'Benguet');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +99,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
+INSERT INTO `client` VALUES (1,123456789,'paymaya','2018-05-15',123);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +117,7 @@ CREATE TABLE `provider` (
   `rating` decimal(1,1) DEFAULT NULL,
   PRIMARY KEY (`provider_id`),
   UNIQUE KEY `bank_account_number_UNIQUE` (`bank_account_number`),
-  UNIQUE KEY `user_id_UNIQUE` (`provider_id`),
+  UNIQUE KEY `provider_id_UNIQUE` (`provider_id`),
   CONSTRAINT `provider_id` FOREIGN KEY (`provider_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -126,6 +128,7 @@ CREATE TABLE `provider` (
 
 LOCK TABLES `provider` WRITE;
 /*!40000 ALTER TABLE `provider` DISABLE KEYS */;
+INSERT INTO `provider` VALUES (2,'BPI','123456789',NULL);
 /*!40000 ALTER TABLE `provider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,8 +147,8 @@ CREATE TABLE `transactions` (
   `request_status` enum('accepted','denied','pending') NOT NULL,
   `date_accepted` date DEFAULT NULL,
   `number_of_days` int(11) NOT NULL,
-  `rent_start_day` datetime NOT NULL,
-  `rent_end_day` datetime DEFAULT NULL,
+  `rent_start_day` date NOT NULL,
+  `rent_end_day` date DEFAULT NULL,
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `transaction_id_UNIQUE` (`transaction_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
@@ -158,7 +161,7 @@ CREATE TABLE `transactions` (
   CONSTRAINT `client` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `truck` FOREIGN KEY (`truck_id`) REFERENCES `trucks` (`truck_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,6 +170,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (1,1,2,1,'pending',NULL,8,'2018-05-12','2018-05-20'),(2,2,2,1,'accepted','2018-05-13',5,'2018-05-15','2018-05-20');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,10 +189,10 @@ CREATE TABLE `trucks` (
   `capacity` varchar(30) NOT NULL,
   `cost` decimal(30,2) NOT NULL,
   `category` varchar(20) NOT NULL,
-  `image` longblob NOT NULL,
+  `image` longblob,
   PRIMARY KEY (`truck_id`,`provider_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
-  UNIQUE KEY `provider_id_UNIQUE` (`provider_id`),
+  KEY `service_provider_idx` (`provider_id`),
   CONSTRAINT `service_provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -199,6 +203,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
+INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'2000 kg',200.00,'Mega',NULL),(2,2,'Ultra Truck',NULL,'20000 kg',2000.00,'Ultra',NULL);
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,10 +220,10 @@ CREATE TABLE `users` (
   `mname` varchar(45) DEFAULT NULL,
   `lname` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `phone_number` varchar(13) NOT NULL,
+  `phone_number` varchar(16) NOT NULL,
   `date_registered` varchar(45) NOT NULL,
   `username` varchar(15) NOT NULL,
-  `password` varchar(8) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `user_type` enum('client','admin','provider') NOT NULL,
   `status` enum('enabled','disabled') NOT NULL DEFAULT 'disabled',
   `request_status` enum('accepted','denied','pending') NOT NULL DEFAULT 'pending',
@@ -227,7 +232,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,6 +241,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','disabled','pending');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -248,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-09 22:05:09
+-- Dump completed on 2018-05-14  4:45:33
