@@ -12,11 +12,16 @@ if ($conn->connect_error) {
 } 
 
 switch ($_POST["function"]) {
-    case "display":
+    case "requests":
         $type = "'".$_POST["type"]."'";
-        $sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province FROM users JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending'";
+        $sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province FROM users JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending' ORDER BY users.date_registered";
         $result = $conn->query($sql);
-        displayInfo($result);
+        displayRequests($result);
+        break;
+    case "transactions":
+        $sql = "SELECT transaction_id, name, c.username client, p.username provider, transactions.request_status, number_of_days, rent_start_day, rent_end_day FROM transactions INNER JOIN users c ON client_id = c.user_id INNER JOIN users p ON provider_id = p.user_id INNER JOIN trucks USING (truck_id);";
+        $result = $conn->query($sql);
+        displayTransactions($result);
         break;
     case "deny":
         $username = "'".$_POST["username"]."'";
@@ -33,7 +38,7 @@ switch ($_POST["function"]) {
 
 
 
-function displayInfo($result){
+function displayRequests($result){
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
@@ -56,6 +61,53 @@ function displayInfo($result){
     } else {
         echo "<small>There are no account requests</small>";
     }
+}
+
+function displayTransactions($result){
+    if ($result->num_rows > 0) {
+        // output data of each row
+        echo "<small id=\"none\" style=\"margin-left: 20px; display: none\">There are no transactions</small>";
+        while($row = $result->fetch_assoc()) {
+            switch($row["request_status"]){
+                case "accepted":
+                    $status = "success";
+                    display($row, $status);
+                    break;
+                case "pending":
+                    $status = "warning";
+                    display($row, $status);
+                    break;
+                case "denied":
+                    $status = "danger";
+                    display($row, $status);
+                    break;
+            }
+        }
+    } else {
+        echo "<small>There are no account requests</small>";
+    }
+}
+
+function display($row, $status){
+    echo "<div class=\"col-md-6\">
+            <div class=\"content\">
+                <p>
+                    <strong>". $row["transaction_id"] ."</strong> | 
+                    <span class=\"text-info\">". $row["name"] ."</span> | 
+                    <span class=\"text-primary\">". $row["client"] ."</span> | 
+                    <span class=\"text-warning\">". $row["provider"] ."</span><br>
+                    <small>
+                        <span class=\"text-secondary\">Number of days: </span> ". $row["number_of_days"] ." | 
+                        <span class=\"text-secondary\">from </span> ". $row["rent_start_day"] ." 
+                        <span class=\"text-secondary\">to</span> ". $row["rent_end_day"] ."
+                    </small> <br> 
+                    <small>
+                        <span class=\"text-secondary\">Request Status: </span> 
+                        <span class=\"badge badge-". $status ."\">". $row["request_status"] ."</span>
+                    </small> 
+                </p>
+            </div>
+        </div>";
 }
 
 $conn->close();

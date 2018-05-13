@@ -10,6 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="../script/transactions.js"></script>
     </head>
 
     <body style="background-color: beige">
@@ -32,13 +33,27 @@
                         <a class="nav-link" href="management.html">User Management</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Log out</a>
+                        <a class="nav-link" id="logout" style="cursor: pointer">Log out</a>
                     </li> 
                 </ul>
             </div>
         </nav>
         <div class="container-fluid" style="padding: 20px">
-            
+            <div class="card">
+                <div class="card-header row">
+                    <h5 class="text-success col-sm-8">Transactions</h5>
+                    <div class="col-sm-4">
+                        <span>Filters: </span>
+                        <button type="button" class="btn btn-secondary" style="padding: 2px 5px 2px 5px; margin: 5px; font-size:10px">Show All</button>
+                        <button type="button" class="btn btn-success" style="padding: 2px 5px 2px 5px; margin: 5px; font-size:10px">Accepted</button>
+                        <button type="button" class="btn btn-warning" style="padding: 2px 5px 2px 5px; margin: 5px; font-size:10px">Pending</button>
+                        <button type="button" class="btn btn-danger" style="padding: 2px 5px 2px 5px; margin: 5px; font-size:10px">Denied</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="transaction" style="padding: 0px 10px 0px 0px;"></div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

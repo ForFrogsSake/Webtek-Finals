@@ -1,28 +1,36 @@
 $(document).ready(function(){
+    /*if(sessionStorage.length == 0){
+        window.location.replace("../index.html");
+    }*/
     $("#username").text("Welcome " + sessionStorage.getItem("username"));
     $("#client").html("<small>Loading Requests...</small>");
     $("#provider").html("<small>Loading Requests...</small>");
     
     $.post("../php/database.php",
     {
-        function: "display",
+        function: "requests",
         type: "client"
     },
     function(data){
-        $("#client").html(data).hide().fadeIn("fast");
+        $("#client").html(data).hide().slideDown("fast");
         denyHandler();
         acceptHandler();
     });
     
     $.post("../php/database.php",
     {
-        function: "display",
+        function: "requests",
         type: "provider"
     },
     function(data){
-        $("#provider").html(data).hide().fadeIn("fast");
+        $("#provider").html(data).hide().slideDown("fast");
         denyHandler();
         acceptHandler();
+    });
+    
+    $("#logout").click(function(){
+        sessionStorage.removeItem("username");
+        window.location.replace("../index.html");
     });
     
     function denyHandler(){
@@ -55,7 +63,7 @@ $(document).ready(function(){
                         function: "accept",
                         username: $(this).find("strong").text(),
                     });
-                    $(this).parent().remove();
+                    $(this).remove();
                     if($("#client").is(":empty")){
                         $("#client").html("<small>There are no account requests</small>");
                     }
