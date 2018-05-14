@@ -92,12 +92,13 @@ function display($row, $status){
     echo "<div class=\"col-md-6\">
             <div class=\"content\">
                 <p>
-                    <strong>ID: ". $row["transaction_id"] ."</strong> | 
+                    <strong>ID: ". $row["transaction_id"] ."</strong> |
                     <span class=\"text-info\">". $row["name"] ."</span>
-                    <span class=\"text-success\">(&#x20b1;". $row["cost"] ."/day)</span> leased by
-                    <span class=\"text-warning\">". $row["provider"] ."</span><br>
+                    <span class=\"text-success\">(&#x20b1;". $row["cost"] ."/day)</span> <br> 
                     <small>
-                        <span class=\"text-secondary\">To be rented by </span> 
+                        <span class=\"text-secondary\">leased by </span> 
+                        <span class=\"text-warning\">". $row["provider"] ."</span>
+                        <span class=\"text-secondary\">rented by </span> 
                         <span class=\"text-primary\">". $row["client"] ."</span> 
                         <span  class=\"text-secondary\">for: </span>". $row["number_of_days"] ." days <br>
                         <span class=\"text-secondary\">from </span> ". $row["rent_start_day"] ." 
