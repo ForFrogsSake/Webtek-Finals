@@ -66,7 +66,7 @@ function displayRequests($result){
 function displayTransactions($result){
     if ($result->num_rows > 0) {
         // output data of each row
-        echo "<small id=\"none\" style=\"margin-left: 20px; display: none\">There are no transactions</small>";
+        echo "<small id=\"none\" style=\"margin-left: 20px; display: none\">There are no transactions of this type</small>";
         while($row = $result->fetch_assoc()) {
             switch($row["request_status"]){
                 case "accepted":
