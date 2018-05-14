@@ -23,25 +23,23 @@ function logIn(){
 
 	var request = objectStore.get(username);
 
-	request.onsuccess = function(e){ //e = laman ng request 
-		//check if result nung request is undefined
-		//undefined meaning walang username na nahanap sa db
+	request.onsuccess = function(e){ 
+		
 		if(request.result == undefined){ 
 			console.log('User not found!');
 			document.getElementById("Error").innerHTML = "Username or Password isncorrect!";
 			window.location = "signin.html";
 		}else{
-			console.log(request.result.username); //if di siya undefined print yung username
-			if (request.result.password == passwd){ //yung passwd ay correct
+			console.log(request.result.username); 
+			if (request.result.password == password){ 
 				console.log('yay');
-				sessionStorage.setItem("user", JSON.stringify({"username": username, "password": passwd}));
-				//to check if the user is login 
-				//window.location = "../index.html"; //punta siya sa home
-			}else { //if hindi correct
+				sessionStorage.setItem("user", JSON.stringify({"username": username, "password": password}));
+			
+			}else { 
 				console.log('wrong password');
-				//window.location = "signin.html"; //reload yung sign html;
+				
 
-				//var errorNode = document.createElement("p");
+				
 
 				document.getElementById("passwordError").innerHTML = "Incorrect password";
 			}
