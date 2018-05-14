@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>REGISTER ACCOUNT</title>
+  <title>TRUCK RENTALS | regsiter</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="icon" href="pics/favicon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+      #headimg{
+        width: 100%;
+      }
+      .headimg{
+          background-image: url(pics/cityscape.png);
+            background-attachment: fixed;
+            background-position: 50px 150px; 
+      }
+      
+    </style>
 </head>
 
-<body style="background-color:#F8F9F9">
-  <div class="container">
-    <div class="card card-register mx-2 mt-4">
-	  <!--card header-->
-      <div class="card-header" style="background-image:#" >Register an Account</div>
-      <div class="card-body">
+<body style="background-color:beige ; margin-top:20px">
+
+    <!--CARD REGISTER-->
+    
+    <div class="container col-sm-6 lead">
+    <div class="card card-register">
+        
+        <div class="card-header headimg"><p style="font-size:21px">Sign-up and rent your first truck!</p></div>
+        <div class="card-body">
 	    <!--inputs-->
         <form>
           <div class="form-group">
@@ -55,7 +70,9 @@
             </div>
           </div>
 		  <!--register button-->
-          <a class="btn btn-warning btn-block" href="login.html">Register</a>
+            
+          <input type="submit" name="submit" class="btn btn-outline-info btn-block" value="Register"/>
+            
         </form>
 		<!--return to login page-->
         <div class="text-center">
@@ -63,7 +80,12 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+        
+        
+        
+        
+        
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -71,3 +93,4 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
 </html>
+
