@@ -1,0 +1,56 @@
+.deny{
+    font-size: 30px;
+    font-family: sans-serif;
+    transition: 0.2s;
+    background-image: url(../images/deny.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.deny:hover{
+    filter: brightness(120%) saturate(120%);
+}
+
+.accept{
+    font-size: 20px;
+    font-family: sans-serif;
+    transition: 0.2s;
+    background-image: url(../images/accept.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.accept:hover{
+    filter: brightness(120%) saturate(120%);
+}
+
+.button{
+    background-color: transparent;
+    width: 60%;
+    height: 100%;
+    border:none;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.button:focus{
+    outline: none;
+}
+
+.col-1 {
+    padding: 0px;
+}
+
+.content {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px 20px 5px 20px;
+}
+
+.col-md-6{
+    padding: 0px 0px 10px 10px;
+}
