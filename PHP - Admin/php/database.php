@@ -23,6 +23,11 @@ switch ($_POST["function"]) {
         $result = $conn->query($sql);
         displayTransactions($result);
         break;
+    case "management":
+        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, request_status, user_type FROM users WHERE request_status <> 'pending'";
+        $result = $conn->query($sql);
+        displayUsers($result);
+        break;
     case "deny":
         $username = "'".$_POST["username"]."'";
         $sql = "UPDATE users SET request_status = 'denied' WHERE username = ".$username;
@@ -32,6 +37,22 @@ switch ($_POST["function"]) {
         $username = "'".$_POST["username"]."'";
         $sql = "UPDATE users SET request_status = 'accepted', status = 'enabled' WHERE username = ".$username;
         $conn->query($sql);
+        break;
+    case "enable":
+        $user = "'".$_POST["user_id"]."'";
+        $sql = "UPDATE users SET request_status = 'accepted', status = 'enabled' WHERE user_id = ".$user;
+        $conn->query($sql);
+        $sql = "SELECT status FROM users WHERE user_id = ".$user;
+        $result = $conn->query($sql);
+        toggle($result);
+        break;
+    case "disable":
+        $user = "'".$_POST["user_id"]."'";
+        $sql = "UPDATE users SET status = 'disabled' WHERE user_id = ".$user;
+        $conn->query($sql);
+        $sql = "SELECT status FROM users WHERE user_id = ".$user;
+        $result = $conn->query($sql);
+        toggle($result);
         break;
 }
 
@@ -60,6 +81,17 @@ function displayRequests($result){
         }
     } else {
         echo "<small>There are no account requests</small>";
+    }
+}
+
+function toggle($result){
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo $row["status"];
+        }
+    } else {
+        echo "error";
     }
 }
 
@@ -112,6 +144,72 @@ function display($row, $status){
                 </p>
             </div>
         </div>";
+}
+
+function displayUsers($result){
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            $status = $row["status"];
+            $request = $row["request_status"];
+            $type = $row["user_type"];
+            $button = $row["status"];
+            $determiner = $row["status"];
+            switch($status){
+                case "disabled":
+                    $status = "danger";
+                    break;
+                case "enabled":
+                    $status = "success";
+            }
+            switch($request){
+                case "accepted":
+                    $request = "success";
+                    break;
+                case "denied":
+                    $request = "danger";
+                    break;
+                case "pending":
+                    $request = "warning";
+                    break;
+            }
+            switch($type){
+                case "client":
+                    $type = "primary";
+                    break;
+                case "provider":
+                    $type = "warning";
+                    break;
+            }
+            switch($button){
+                case "disabled":
+                    $button = "Enable";
+                    break;
+                case "enabled":
+                    $button = "Disable";
+                    break;
+            }
+            switch($determiner){
+                case "disabled":
+                    $determiner = "success";
+                    break;
+                case "enabled":
+                    $determiner = "danger";
+            }
+            echo "<tr>
+                        <td><strong>". $row["user_id"] ."</strong></td>
+                        <td>". $row["username"] ."</td>
+                        <td>". $row["fname"] ."</td>
+                        <td>". $row["lname"] ."</td>
+                        <td>". $row["email"] ."</td>
+                        <td>". $row["date_registered"] ."</td>
+                        <td><div class=\"status badge badge-". $status ."\">". $row["status"] ."</div></td>
+                        <td><div class=\"request badge badge-". $request ."\">". $row["request_status"] ."</div></td>
+                        <td><div class=\"type text-". $type ."\">". $row["user_type"] ."</div></td>
+                        <td><button class=\"btn btn-sm btn-". $determiner ."\" style=\"padding: 3px 8px 3px 8px; font-size:12px\">". $button ."</button></td>
+                </tr>";
+        }
+    }
 }
 
 $conn->close();

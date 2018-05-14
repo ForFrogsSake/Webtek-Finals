@@ -54,3 +54,26 @@
 .col-md-6{
     padding: 0px 0px 10px 10px;
 }
+
+.card-body::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    display: none;
+}
+
+.card-body::-webkit-scrollbar-thumb{
+    background-color: #c0c0c0;
+    border-radius: 5px;
+}
+
+.card-body::-webkit-scrollbar-button{
+    display: none;
+}
+
+@media screen and (max-width: 1024px){
+    .card-body::-webkit-scrollbar{
+        display: block;
+    }
+}

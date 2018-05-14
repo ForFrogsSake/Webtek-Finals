@@ -10,7 +10,7 @@ $(document).ready(function(){
     },
     function(data){
         $("#transaction").html(data).hide().slideDown("fast");
-        if($("transaction").is(":empty")){
+        if($("#transaction").is(":empty")){
             $("#transaction").html("<small style=\"margin-left: 20px\">There are no transactions</small>");
         }
     });
