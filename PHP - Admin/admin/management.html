@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Truck Rentals</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../images/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" href="../login.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="../script/management.js"></script>
+    </head>
+
+    <body style="background-color: beige">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+            <a class="navbar-brand" href="../index.html">Truck Rentals <img src="../images/truck.png" width="25px" height="25px"></a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="adminsignup.html">Account Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transactions.html">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="management.html">User Management</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" id="logout" style="cursor: pointer">Log out</a>
+                    </li> 
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid" style="padding: 20px; margin-top: 55px;">
+            <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h5 class="text-secondary">User Accounts</h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="search" placeholder="Search" style="padding-right: 30px; font-size: 10px; background-image: url(../images/search.png); background-position: right; background-size: contain; background-repeat: no-repeat">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" id="cardBody" style="padding: 0px 20px 0px 20px; overflow: scroll;">
+                    <div id="load" style="padding:20px 0px 20px 0px"><small>Loading denied and accepted user accounts...</small></div>
+                    <table class="table table-striped">
+                        <thead style="display:none">
+                            <tr>
+                                <th>User ID</th>
+                                <th>User Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Request Date</th>
+                                <th>Account Status</th>
+                                <th>Request Status</th>
+                                <th>Account Type</th>
+                                <th>Enable/Disable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25); margin: 30px 0px 50px 0px;">
+                <div class="card-header">
+                    <h5 class="text-success">Create Administrator Account</h5>
+                </div>
+                <div class="card-body" id="cardBody" style="padding: 20px; overflow: scroll;">
+                    <div class="container" id="field">
+                        <input type="text" class="form-control" id="username" placeholder="Username">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <br><small class="text-danger" id="prompt"></small><br><br>
+                        <button type="button" class="btn btn-success" style="margin-top: 0px;" id="signin">Create Account</button><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="bg-dark text-center text-light fixed-bottom" id="footer" style="padding: 5px;">
+                <small>Copyright &copy; 2018 Truck Rentals. All Rights Reserved</small>
+            </div>
+        </footer>
+    </body>
+</html>

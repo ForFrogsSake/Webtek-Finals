@@ -1,0 +1,17 @@
+#field{
+    width: 30%;
+}
+
+.form-control:first-of-type{
+    margin-top: 30px;
+}
+
+.form-control:last-of-type{
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1024px){
+    #field{
+        width: 100%;
+    }
+}

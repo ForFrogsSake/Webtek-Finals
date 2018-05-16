@@ -27,7 +27,6 @@ $(document).ready(function(){
     
     function addHandler(){
         $(".btn-danger").click(function(){
-            var user = $(this).parent().parent().find("strong").text();
             $.post("../php/database.php",
             {
                 function: "disable",
