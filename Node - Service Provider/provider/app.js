@@ -162,41 +162,14 @@ app.post('/provider/add', function(req, res, next){
                 status: 'disabled',
                 request_status: 'pending'
                }
-
-               try {
-                // Throwing EmailTakenError exception.
-                throw new EmailTakenError();
-              } catch (error) {
-                // Catching exception by class.
-                if (error instanceof EmailTakenError) {
-                  console.log('E-Mail validation failed!', error);
-                } else {
-                  // If failed to catch, throwing it higher.
-                  console.log('Unknown error', error);
-                  throw error;
-                }
-              }
-              
-              
-              try {
-                // Throwing RequestValidationError exception.
-                throw new RequestValidationError();
-              } catch (error) {
-                // Catching error by base (parent) class.
-                if (error instanceof AppError) {
-                  console.log('Some application error occurred!', error);
-                } else {
-                  console.log('Unknown error', error);
-                  throw error;
-                }
-              }
-
             req.getConnection(function(error, conn){
                 conn.query('INSERT INTO users SET ?', newProvider, function(err, result){
-                    if (err) {
+                    if (err){
                         console.log(err);
+                        req.checkBody('email', ' Email is already taken.').isEmail().isLength({min: 1});
+                        errors = req.validationErrors();
                         res.render('signup.ejs',{
-                            
+                            errors
                         })
                 } else {
                     console.log('SUCCESS');
@@ -217,21 +190,31 @@ app.post('/provider/add', function(req, res, next){
     }
 });
 
-app.get('/login', function(req, res, next){
-    req.getConnection(function(err,conn){
-        conn.query("SELECT username, password FROM users", function(error, rows, fields){
-            if(!!error){
-                console.log("error");
+app.post('/provider/signup-form', function(req, res){
+    req.getConnection(function(err, conn){
+        if (err) throw err;
+        var currDate = new Date();
+            var date = currDate.getFullYear();
+            if(((currDate.getMonth()+1) < 10)){
+                date += '-0' + ((currDate.getMonth())+1);
             } else {
-                row.forEach(function(rows){
-                    var i = 0;
-                    if(req.body.username == rows[i].username){
-                        res.render('home.ejs');
-                    } else {
-                        console.log('user not found');
-                    }
-                })
-            }
+                date += '-' + ((currDate.getMonth())+1);
+                }
+        var newProvider = {
+            email: req.body.email,
+            phone_number: req.body.phone_number,
+            date_registered: date,
+            username: req.body.username,
+            password: req.body.password,
+            fName: req.body.fName,
+            lName: req.body.lName,
+            user_type: 'provider',
+            status: 'disabled',
+            request_status: 'pending'
+           }
+        conn.query('INSERT INTO users SET ?', newProvider, function(err, result){
+            if (err) throw err;
+		    res.send("Created "+JSON.stringify(result));
         })
     })
 });

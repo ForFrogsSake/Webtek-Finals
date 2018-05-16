@@ -30,11 +30,23 @@
             <br> <br>
             <input type="submit" value="Register">
         </form>
-        <hr>
+        <!-- <hr>
         <form method="get" action="/login.ejs">
                 <Label>Already have an account?</Label>
                 <input type="submit" value="Login">
-        </form>
+        </form> -->
     </div>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+ <script>
+ $(document).ready(function  () {
+     $("#submit").on("submit",function  (e) {
+         e.preventDefault();
+         console.log();
+         $.post("/",$(this).serialize(), function( data ) {
+          console.log(data);
+        });
+     })
+ });
+ </script>
 <% include partials/footer %>
