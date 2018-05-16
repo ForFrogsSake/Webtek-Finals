@@ -1,7 +1,7 @@
 $(document).ready(function(){
-    /*if(sessionStorage.length == 0){
+    if(sessionStorage.length == 0){
         window.location.replace("../index.html");
-    }*/
+    }
     $("#username").text("Welcome " + sessionStorage.getItem("username"));
     $("#client").html("<small>Loading Requests...</small>");
     $("#provider").html("<small>Loading Requests...</small>");

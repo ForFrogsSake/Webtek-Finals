@@ -1,7 +1,7 @@
 $(document).ready(function(){
-    /*if(sessionStorage.length == 0){
+    if(sessionStorage.length == 0){
         window.location.replace("../index.html");
-    }*/
+    }
     $("#transaction").html("<small style=\"margin-left: 20px\">Loading Transactions...</small>");
     
     $.post("../php/database.php",

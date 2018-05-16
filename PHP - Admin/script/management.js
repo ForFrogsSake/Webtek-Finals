@@ -1,7 +1,7 @@
 $(document).ready(function(){
-    /*if(sessionStorage.length == 0){
+    if(sessionStorage.length == 0){
         window.location.replace("../index.html");
-    }*/
+    }
     
     $.post("../php/database.php",
     {
