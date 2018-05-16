@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Truck Rentals</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../websites/pics/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="../script/transactions.js"></script>
+        <style>
+         .headimg{
+            background-image: url(../websites/pics/cityscape.png);
+            background-attachment: fixed;
+            background-position: 50px 195px; 
+         }
+      
+        .kakanan {
+            font-size: 30px;
+            -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
+            transition: padding-left 2s;
+            transition-timing-function: ease-in;
+        }
+
+        .kakanan:hover {
+            padding-left: 50%;
+        }
+        
+        </style>
+    </head>
+
+    <body style="background-color: beige">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+            <a class="navbar-brand" href="../websites/index.html">Truck Rentals <img src="../websites/pics/truck.png" width="25px" height="25px"></a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar" >
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../websites/truck.html">Trucks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../websites/transactions.html">Transactions</a>
+                    </li>
+				<li class="nav-item active">
+                        <a class="nav-link" id="logout" style="cursor: pointer" href="../websites/myprofile.html">Profile</a>
+                </li>
+			    <li class="nav-item active">
+				<a class="nav-link" id="logout" style="cursor: pointer">Log out</a>
+                </li>	
+                </ul>
+            </div>  	
+        </nav>
+        
+							<!--TRANSACTION-->
+        <div class="container-fluid lead" style="padding: 20px; margin-top: 55px;">
+              <div class="row">
+				<div class="col-sm-12">
+				<div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
+                <div class="card-header headimg">
+                        <h2 class="text-dark">TRANSACTIONS HISTORY</h2>
+                </div>
+                <div class="card-body">
+                        Trucks Available: 20 Trucks<br>
+                     <table class="table table-striped table-sm">
+                    <tbody>
+                        <thead>
+                          <tr>
+                            <th>Truck</th>
+                            <th>Client</th>
+							<th>Duration</th>
+							<th>Status</th>
+							<th>Amount</th>
+                          </tr>
+                        </thead>
+                      <tr class="table-success">
+                        <td>Big Truck</td>
+                        <td>Louel</td>
+						<td>3 Days Remaining</td>
+						<td>Accepted</td>
+						<td>4000/DAY</td>
+					  </tr>
+                      <tr class="table-success">
+                        <td>Elf</td>
+                        <td>Louel</td>
+						<td>7 Days Remaining</td>
+						<td>Accepted</td>
+						<td>2500/DAY</td>			
+                      </tr>
+					    <tr class="table-danger">
+                        <td>Semi-Truck</td>
+                        <td>Jhay</td>
+						<td>None</td>
+						<td>Rejected</td>
+						<td>100/DAY</td>
+                      </tr>
+                    </tbody>
+				</div>
+                </div>
+                </div>
+				
+				
+		</div>
+		
+		</div>
+    </body>
+</html>
