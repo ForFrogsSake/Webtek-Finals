@@ -13,10 +13,11 @@
         <script src="../script/transactions.js"></script>
         
         <style>
+    
          .headimg{
-            background-image: url(../pics/cityscape.png);
+            background-image: url(../pics/cityscape.png) ;
             background-size: cover;
-            background-position: bottom; 
+            background-position: bottom;
          }
       
         .kakanan {
@@ -89,6 +90,16 @@
                             <td>Kwan truck</td>
                             <td>Delivery</td>
                             <td>Available</td>
+                              
+                        <!--dito ung button for rent-->
+                            <td>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal">
+                                Rent
+                              </button>
+                            <!--eto ung button pag nasend-->
+                                <button type="button" class="btn btn-success" >
+                                Request sent
+                              </button>
+                              </td>
                           </tr>
                           <tr>
                             <td>Hilux</td>
@@ -110,6 +121,43 @@
                           </tr>
                         </tbody>
                       </table>
+                        
+                        
+                        
+                        
+                        
+                <!-- REQUEST Modal -->
+              <div class="modal fade" id="requestModal">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header headimg">
+                      <h4 class="modal-title">Rent Request</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
+                      Number of days to rent:
+                      <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
+                        
+                        Starting day of use:
+                      <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter starting date">
+                        
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                   <button type="button" class="btn btn-success" ><a class="text-light" href="#">send request</a></button>
+                  <button type="button" class="btn btn-warning text-light" data-dismiss="modal">Close</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            <!--end modal-->
                 </div>
                     
                          
