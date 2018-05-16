@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `truck_rentals` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `truck_rentals`;
--- MySQL dump 10.13  Distrib 5.7.21, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: truck_rentals
 -- ------------------------------------------------------
--- Server version	5.7.21
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -99,7 +97,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,123456789,'paymaya','2018-05-15',123);
+INSERT INTO `client` VALUES (1,123456789,'paymaya','2018-05-15',123),(3,12458,'debit','2018-01-08',2451);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +146,7 @@ CREATE TABLE `transactions` (
   `date_accepted` date DEFAULT NULL,
   `number_of_days` int(11) NOT NULL,
   `rent_start_day` date NOT NULL,
-  `rent_end_day` date DEFAULT NULL,
+  `rent_end_day` date NOT NULL,
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `transaction_id_UNIQUE` (`transaction_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
@@ -190,6 +188,7 @@ CREATE TABLE `trucks` (
   `cost` decimal(30,2) NOT NULL,
   `category` varchar(20) NOT NULL,
   `image` longblob,
+  `status` enum('available','not available') DEFAULT NULL,
   PRIMARY KEY (`truck_id`,`provider_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
   KEY `service_provider_idx` (`provider_id`),
@@ -203,7 +202,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
-INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'2000 kg',200.00,'Mega',NULL),(2,2,'Ultra Truck',NULL,'20000 kg',2000.00,'Ultra',NULL);
+INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'2000 kg',200.00,'Mega',NULL,'available'),(2,2,'Ultra Truck',NULL,'20000 kg',2000.00,'Ultra',NULL,'not available');
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +231,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +240,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','disabled','pending');
+INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','disabled','pending'),(3,'Blessly',NULL,'Carbonell','blessly@gmail.com','+69 472 584 6311','2018-05-16','blehli','blehli','client','disabled','pending');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -254,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-14  4:45:33
+-- Dump completed on 2018-05-17  5:06:43
