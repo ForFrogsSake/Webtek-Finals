@@ -3,10 +3,12 @@ var mysql = require('mysql');
 var express = require("express");
 var bodyparser = require('body-parser');
 var path = require('path');
-var myConnection = require('express-myconnection');
+var formidale = require('express-formidable');
 var app = express();
 var expressValidator = require('express-validator');
 var router = express.Router();
+var $ = require('jquery');
+var myConnection = require('express-myconnection');
 
 var AppError = require('./errors/AppError');
 var EmailTakenError = require('./errors/EmailTakenError');
@@ -22,17 +24,7 @@ var dbOptions = {
     database : config.database.database
 }
 
-
-app.use(myConnection(mysql, dbOptions, 'pool'))
-
-// connection.connect(function(err){
-//     if(err) throw err;
-//     console.log('Connection Established.');
-//     connection.query("SELECT * FROM trucks", function(error,result,fields){
-//         if(error) throw error;
-//         console.log(result);
-//     })
-// });
+app.use(myConnection(mysql, dbOptions, 'pool'));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -111,10 +103,10 @@ app.get('/provider/signup', function(req, res, next){
 });
 
 app.get('/provider/login', function(req, res, next){
-    res.render('login.ejs')
+    res.redirect('http://truckrentals.com');
 });
 
-app.post('/provider/add', function(req, res, next){
+app.post('/provider/register', function(req, res, next){
 
     var fName = req.body.fName;
     var lName = req.body.lName;
@@ -169,16 +161,11 @@ app.post('/provider/add', function(req, res, next){
                         req.checkBody('email', ' Email is already taken.').isEmail().isLength({min: 1});
                         errors = req.validationErrors();
                         res.render('signup.ejs',{
-                            errors
                         })
                 } else {
                     console.log('SUCCESS');
-                    req.flash('success', 'Data added successfully')
 
-                    res.render('home.ejs', {
-                        fName: newProvider.fName,
-                        lName: newProvider.lName,
-                    })
+                    res.render('home.ejs');
                 }
             })
         })
@@ -189,6 +176,65 @@ app.post('/provider/add', function(req, res, next){
         })
     }
 });
+
+app.get('/provider/addTruck', (req,res) => {
+    res.render('addTruck.ejs');
+});
+
+app.post('/provider/addTruck', (req, res) => {
+    var name = req.body.name;
+    var description = req.body.description;
+    var capacity = req.body.capacity;
+    var cost = req.body.cost;
+    var category = req.body.category;
+
+    var newId = 1;
+
+    req.checkBody('name', 'Name is invalid.').notEmpty();
+    req.checkBody('capacity', 'Capacity is invalid.').notEmpty();
+    req.checkBody('cost', 'cost is invalid.').notEmpty();
+    req.checkBody('category', 'Category is invalid.').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if(!errors){
+
+        req.getConnection(function(err,conn){
+        conn.query("SELECT truck_id FROM trucks ORDER BY truck_id DESC LIMIT 0,1 ", function(err,row,fields){
+            if(err){
+                console.log(err);
+            } else {
+                newId = row[0].truck_id + 1;
+                var newTruck = {
+                    truck_id: newId,
+                    provider_id: 2,
+                    name: req.sanitize('name').escape().trim(),
+                    capacity: req.sanitize('capacity').escape().trim(),
+                    cost: req.sanitize('cost').escape().trim(),
+                    category: req.sanitize('category').escape().trim()
+                }
+                req.getConnection(function(err, conn){
+                    conn.query('INSERT INTO trucks SET ?', newTruck, function(err, result){
+                        if (err){
+                            console.log(err);
+                            res.render('addTruck.ejs',{
+                                errors
+                            })
+                        } else {
+                            console.log('SUCCESS');
+                            console.log('result');
+                            res.render('addTruck.ejs');
+                        }
+                    })
+                })   
+                console.log('Success');
+            }
+        })
+    });
+        } else {
+            console.log(error);
+        }
+    });
 
 app.post('/provider/signup-form', function(req, res){
     req.getConnection(function(err, conn){
@@ -223,3 +269,32 @@ app.listen(3000, function(err){
     if(err) throw err;
     console.log('Server running at port 3000');
 });
+
+function checkEmail(user,callback){
+    var userEmail = user;
+    
+    var sql = "SELECT email FROM users WHERE email =?";
+
+    connection.query(sql,user,(err,res,fields) => {
+        if(err){
+            console.log('Already taken.');
+        } else {
+            console.log('Success');
+        }
+    })
+}
+
+// function incrementTruckId(req, callback){
+//     var newId = 1;
+//     req.getConnection(function(err,conn){
+//         conn.query("SELECT truck_id FROM trucks ORDER BY truck_id DESC LIMIT 0,1 ", function(err,row,fields){
+//             if(!err){
+//                 newId = row[0].truck_id + 1;
+//                 callback();
+//             } else {
+//                 console.log(err);
+//                 return callback(err);
+//             }
+//         });
+//     })
+// }

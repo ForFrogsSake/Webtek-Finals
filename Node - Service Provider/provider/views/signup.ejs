@@ -6,9 +6,9 @@
                 <div class="alert alert-danger"><%= errors.msg %></div>
             <% }) %>
         <% } %>
-        <form method="post" action="/provider/add">
+        <form method="post" action="/provider/register" id="signin">
             <label>First name</label><br>
-            <input type="text" name="fName" value="">
+            <input type="text" name="fName">
             <br>
             <label>Last Name</label><br>
            <input type="text" name="lName" >
@@ -28,25 +28,9 @@
             <label>Confirm Password</label><br>
             <input type="password" name="re_password" >
             <br> <br>
+            <small class="text-danger" id="prompt"></small><br>
             <input type="submit" value="Register">
         </form>
-        <!-- <hr>
-        <form method="get" action="/login.ejs">
-                <Label>Already have an account?</Label>
-                <input type="submit" value="Login">
-        </form> -->
     </div>
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
- <script>
- $(document).ready(function  () {
-     $("#submit").on("submit",function  (e) {
-         e.preventDefault();
-         console.log();
-         $.post("/",$(this).serialize(), function( data ) {
-          console.log(data);
-        });
-     })
- });
- </script>
 <% include partials/footer %>
