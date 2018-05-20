@@ -1,14 +1,16 @@
 $(document).ready(function(){
     $("#password").keypress(function(event) {
         if (event.keyCode == 13) {
-            $("#prompt").fadeOut("fast");
-            query();
+            $("#prompt").fadeOut("fast", function(){
+                query();
+            });
          }
     });
     
     $("#signin").click(function(){
-        $("#prompt").fadeOut("fast");
-        query();
+        $("#prompt").fadeOut("fast", function(){
+            query();
+        });
     });
     
     function query(){

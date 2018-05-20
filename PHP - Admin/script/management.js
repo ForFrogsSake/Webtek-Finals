@@ -9,13 +9,13 @@ $(document).ready(function(){
         username: sessionStorage.getItem("username")
     },
     function(data){
-        $("tbody").html(data).hide().slideDown("fast");
+        $("tbody").hide().html(data).slideDown("fast");
         $("thead").slideDown("fast");
         $("#load").remove();
         addHandler();
         if($("tbody").is(":empty")){
             $("#cardBody").empty();
-            $("#cardBody").html("<div style=\"padding:20px 0px 20px 0px\"><small>There are no accepted and denied user accounts</small></div>").hide().slideDown("fast");
+            $("#cardBody").hide().html("<div style=\"padding:20px 0px 20px 0px\"><small>There are no accepted and denied user accounts</small></div>").slideDown("fast");
         }
     });
     

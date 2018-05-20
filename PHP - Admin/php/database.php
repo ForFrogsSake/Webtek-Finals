@@ -24,7 +24,7 @@ switch ($_POST["function"]) {
         displayTransactions($result);
         break;
     case "management":
-        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, request_status, user_type FROM users WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."'";
+        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, user_type FROM users WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."'";
         $result = $conn->query($sql);
         displayUsers($result);
         break;
@@ -116,7 +116,7 @@ function displayTransactions($result){
             }
         }
     } else {
-        echo "<small>There are no account requests</small>";
+        echo "<small style=\"margin-left: 20px\">There are no transactions</small>";
     }
 }
 
@@ -151,7 +151,6 @@ function displayUsers($result){
         // output data of each row
         while($row = $result->fetch_assoc()) {
             $status = $row["status"];
-            $request = $row["request_status"];
             $type = $row["user_type"];
             $button = $row["status"];
             $determiner = $row["status"];
@@ -161,17 +160,6 @@ function displayUsers($result){
                     break;
                 case "enabled":
                     $status = "success";
-            }
-            switch($request){
-                case "accepted":
-                    $request = "success";
-                    break;
-                case "denied":
-                    $request = "danger";
-                    break;
-                case "pending":
-                    $request = "warning";
-                    break;
             }
             switch($type){
                 case "client":
@@ -204,7 +192,6 @@ function displayUsers($result){
                         <td>". $row["email"] ."</td>
                         <td>". $row["date_registered"] ."</td>
                         <td><div class=\"status badge badge-". $status ."\">". $row["status"] ."</div></td>
-                        <td><div class=\"request badge badge-". $request ."\">". $row["request_status"] ."</div></td>
                         <td><div class=\"type text-". $type ."\">". $row["user_type"] ."</div></td>
                         <td><button class=\"btn btn-sm btn-". $determiner ."\" style=\"padding: 3px 8px 3px 8px; font-size:12px\">". $button ."</button></td>
                 </tr>";
