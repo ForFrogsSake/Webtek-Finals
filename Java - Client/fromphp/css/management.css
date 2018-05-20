@@ -1,0 +1,55 @@
+.field{
+    width: 80%;
+}
+
+.last{
+    width: 60%;
+}
+
+.card-body::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    display: none;
+}
+
+.card-body::-webkit-scrollbar-thumb{
+    background-color: #c0c0c0;
+    border-radius: 5px;
+}
+
+.card-body::-webkit-scrollbar-button{
+    display: none;
+}
+
+.container-fluid{
+    width: 90%;
+}
+
+.carousel-inner{
+    width: 100%;
+    margin: auto;
+}
+
+.form-control{
+    margin-top: 15px;
+}
+
+@media screen and (max-width: 1024px){
+    .card-body::-webkit-scrollbar{
+        display: block;
+    }
+    .container-fluid{
+        width: 100%;
+    }
+    .carousel-inner{
+        width: 80%;
+    }
+    .field{
+        width: 100%;
+    }
+    .last{
+        width: 100%;
+    }
+}
