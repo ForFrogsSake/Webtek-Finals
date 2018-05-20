@@ -24,7 +24,7 @@ switch ($_POST["function"]) {
         displayTransactions($result);
         break;
     case "management":
-        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, request_status, user_type FROM users WHERE request_status <> 'pending'";
+        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, request_status, user_type FROM users WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."'";
         $result = $conn->query($sql);
         displayUsers($result);
         break;

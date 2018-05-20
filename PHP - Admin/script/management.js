@@ -5,7 +5,8 @@ $(document).ready(function(){
     
     $.post("../php/database.php",
     {
-        function: "management"
+        function: "management",
+        username: sessionStorage.getItem("username")
     },
     function(data){
         $("tbody").html(data).hide().slideDown("fast");
