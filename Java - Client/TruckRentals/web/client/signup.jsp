@@ -3,8 +3,8 @@
     Created on : 05 14, 18, 9:57:32 PM
     Author     : HP
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"
-        import="java.io.File"%>
+<%  String adminlink = "//localhost/phpfinals";
+    String url = "jdbc:mysql://localhost/truck_rentals";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <link rel="icon" href="pics/favicon.png">
+  <link rel="icon" href="../pics/favicon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -22,10 +22,9 @@
         width: 100%;
       }
       .headimg{
-            background-image: url(../pics/cityscape.png);
-            background-attachment: fixed;
+            background-image: url(../pics/cityscape.png) ;
+            background-size: cover;
             background-position: bottom;
-            background-size: cover; 
       }
     </style>
 </head>
@@ -40,7 +39,7 @@
         <div class="card-header headimg"><p style="font-size:21px">Sign-up and rent your first truck!</p></div>
         <div class="card-body">
 	    <!--inputs-->
-        <form action="client/registercheck.jsp" method="post" target="_self">
+        <form action="../client/registercheck.jsp" method="post" target="_self">
           <div class="form-group">
               <div class="text-left text-secondary" style="font-size:25px">Personal Information</div>
             <div class="form-row">
@@ -110,7 +109,7 @@
         </form>
 		<!--return to login page-->
         <div class="text-center">
-          <a class="d-block small mt-4" href="login.html">Login Page</a>
+          <a class="d-block small mt-4" href="<% out.print(adminlink); %>">Login Page</a>
         </div>
       </div>
     </div>

@@ -1,70 +1,61 @@
 <%@ page import="java.sql.*"
          import= "java.text.SimpleDateFormat" 
-         import= "java.util.Date" %>
+         import= "java.util.Date" %>    
 
-<% 
-   String action=request.getParameter("action");
-   if (action.equals("Register")){
-       String fname=request.getParameter("fname");
-       String lname = request.getParameter("lname");
-       String username = request.getParameter("uname");
-       String email = request.getParameter("email");
-       String phone = request.getParameter("phone");
-       String pass = request.getParameter("pass");
-       String repass = request.getParameter("repass");
-       String cardtype = request.getParameter("cardtype");
-       String cardnum = request.getParameter("cardnum");
-       String expdate = request.getParameter("exp");
-       String cvv = request.getParameter("cvv"); 
-       java.util.Date exp = new SimpleDateFormat("yyyy-mm-dd").parse(expdate);
-       java.sql.Date date = new java.sql.Date(exp.getTime());
-       
-       if(pass != repass){
-           response.setHeader("Location", "../client/register.jsp?password+unmatched");
-       }
-       try{
-           Class.forName("com.mysql.jdbc.Driver");
-           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/truck_rentals", "root", "");
-           PreparedStatement pStatement;
-           Statement stm = con.createStatement();
-           ResultSet rs ;//while (rs.next()){
-           String query= "INSERT INTO users (fname, lname, date_registered, email, phone_number, username, password, user_type, status, request_status) VALUES (?, ?, CURRENT_DATE(), ?, ?, ?, ?, 'client', 'disabled', 'pending') ;";
-           pStatement = con.prepareStatement(query);
-           pStatement.setString(1, fname);
-           pStatement.setString(2, lname);
-           pStatement.setString(3, email);
-           pStatement.setString(4, phone);
-           pStatement.setString(5, username);
-           pStatement.setString(6, pass);
-           pStatement.executeUpdate();
-           
-           query= "select user_id from users where username = '"+username+"' ;";
-           rs = stm.executeQuery(query);
-           rs.next();
-           int temp = rs.getInt("user_id");
-           
-           query= "INSERT INTO client (client_id, card_number, card_type, card_expiration_date, card_cvv2) VALUES (?,?,?,?,?);";
-           pStatement = con.prepareStatement(query);
-           pStatement.setInt(1, temp);
-           pStatement.setString(2, cardnum);
-           pStatement.setString(3, cardtype);
-           pStatement.setDate(4, date);
-           pStatement.setString(5, cvv);
-           pStatement.executeUpdate();
-           
-           //REDIRECT TO SIGN UP PAGE
-           ///???response.sendRedirect("truckrentals.com/admin/");
-           
-       }catch(SQLException e){
-           out.println(e);
-       }catch(Exception e){
-           out.println(e);
-       }
-       
-   }
-%>
+<%  
+    String logoutlink = "../client/intro.jsp?logout=successfully"; 
+    String adminlink = "//localhost/phpfinals";
+    String url = "jdbc:mysql://localhost/truck_rentals";
+    
+    
+    
+    String action=request.getParameter("action");
+    if (action.equals("Register")){
+        String fname=request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String username = request.getParameter("uname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String pass = request.getParameter("pass");
+        String repass = request.getParameter("repass");
+        String cardtype = request.getParameter("cardtype");
+        String cardnum = request.getParameter("cardnum");
+        String expdate = request.getParameter("exp");
+        String cvv = request.getParameter("cvv"); 
+        java.util.Date exp = new SimpleDateFormat("yyyy-mm-dd").parse(expdate);
+        java.sql.Date date = new java.sql.Date(exp.getTime());
 
+        try{
+            if(pass.equals(repass)){
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, "root", "");
+                PreparedStatement pStatement;
+                Statement stm = con.createStatement();
+                ResultSet rs ;
+                String query= "INSERT INTO users (fname, lname, date_registered, email, phone_number, username, password, user_type, status, request_status) VALUES (?, ?, CURRENT_DATE(), ?, ?, ?, ?, 'client', 'disabled', 'pending') ;";
+                pStatement = con.prepareStatement(query);
+                pStatement.setString(1, fname);
+                pStatement.setString(2, lname);
+                pStatement.setString(3, email);
+                pStatement.setString(4, phone);
+                pStatement.setString(5, username);
+                pStatement.setString(6, pass);
+                pStatement.executeUpdate();
+           
+                query= "select user_id from users where username = '"+username+"' ;";
+                rs = stm.executeQuery(query);
+                rs.next();
+                int temp = rs.getInt("user_id");
 
+                query= "INSERT INTO client (client_id, card_number, card_type, card_expiration_date, card_cvv2) VALUES (?,?,?,?,?);";
+                pStatement = con.prepareStatement(query);
+                pStatement.setInt(1, temp);
+                pStatement.setString(2, cardnum);
+                pStatement.setString(3, cardtype);
+                pStatement.setDate(4, date);
+                pStatement.setString(5, cvv);
+                pStatement.executeUpdate();
+                 %>
 <%-- 
     Document   : register
     Created on : 05 14, 18, 9:57:32 PM
@@ -105,11 +96,12 @@
         
         <div class="card-header headimg"><p style="font-size:21px">Sign-up and rent your first truck!</p></div>
         <div class="card-body">
-	    <!--inputs-->
+            <center><!--inputs-->
             Congratulations! <br> Your sign-up request has been sent. <br>
-		<!--return to login page-->
+		<!--return to login page-->            </center>
+
         <div class="text-center">
-          <a class="d-block small mt-4" href="truckrentals.com/admin">Login Page</a>
+          <a class="d-block small mt-4" href="<% out.print(logoutlink); %>" >Login Page</a>
         </div>
       </div>
     </div>
@@ -123,4 +115,19 @@
 </body>
 </html>
 
+
+                
+                 <%
+           }else{
+               response.sendRedirect("../client/signup.jsp?password+unmatched");
+           }
+           
+       }catch(SQLException e){
+           out.println(e);
+       }catch(Exception e){
+           out.println(e);
+       }
+       
+   }
+%>
 

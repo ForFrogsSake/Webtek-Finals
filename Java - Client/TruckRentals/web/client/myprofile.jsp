@@ -3,22 +3,29 @@
     Created on : 05 16, 18, 7:31:55 AM
     Author     : HP
 --%>
-
+<%  String adminlink = "//localhost/phpfinals";
+    String logoutlink = "../client/intro.jsp?logout=successfully";     
+    String url = "jdbc:mysql://localhost/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
         import= "java.sql.*" %>
+<script>
+    
+</script>
 <% 
     try {
         Class.forName("com.mysql.jdbc.Driver");
-           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/truck_rentals", "root", "");
-           PreparedStatement pStatement;
-           Statement stm = con.createStatement();
-           ResultSet rs ;//while (rs.next()){
-           String query;
-           
-           //query = "select * from users where username="+session. ;";
-           //rs = stm.executeQuery(query);
-           
-    
+        Connection con = DriverManager.getConnection(url, "root", "");
+        PreparedStatement pStatement;
+        Statement stm = con.createStatement();
+        ResultSet rs ;//while (rs.next()){
+        String query;
+        String username = //(String)session.getAttribute("username");
+                "blehli";
+        query = "select concat(fname, ' ', lname) as full , username, email, phone_number, password from users where username='"+username+"';";
+        rs = stm.executeQuery(query);
+        rs.next();
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -36,12 +43,11 @@
         <script src="../script/transactions.js"></script>
         
         <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png);
-            background-attachment: fixed;
-            background-position: 50px 195px; 
+        .headimg{
+            background-image: url(../pics/cityscape.png) ;
+            background-size: cover;
+            background-position: bottom;
          }
-      
         .kakanan {
             font-size: 30px;
             -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
@@ -78,7 +84,7 @@
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
-                        <a class="nav-link" id="logout" style="cursor: pointer">Log out</a>
+                    <a class="nav-link" id="logout" style="cursor: pointer" href="<% out.print(logoutlink); %>">Log out</a>
                 </li>
               </ul>
             </div>
@@ -96,26 +102,26 @@
                     <tbody>
                       <tr>
                         <td>Name:</td>
-                        <td>Delfin III Cachin</td>
+                        <td><% out.println(rs.getString("full")); %></td>
                       </tr>
                       <tr>
                         <td>Username:</td>
-                        <td>delfin iii</td>
+                        <td><% out.println(rs.getString("username")); %></td>
                       </tr>
                       <tr>
                         <td>Email address:</td>
-                          <td>2163315@slu.edu.ph</td>
+                          <td><% out.println(rs.getString("email")); %></td>
                       </tr>
                       <tr>
                         <td>Phone number:</td>
-                        <td>090000000</td>
+                        <td><% out.println(rs.getString("phone_number")); %></td>
                       </tr>
                     </tbody>
                   </table>
                     
                                 
                 <!--edit profile-->
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">edit my profile</button>
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>
                     
                 <form action="../client/editProfile.jsp" method="post" target="_self">
                     <div id="edit" class="collapse" style="background-color: #F1FFFF  ;">

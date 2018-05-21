@@ -3,7 +3,10 @@
     Created on : 05 16, 18, 7:37:06 AM
     Author     : HP
 --%>
-
+<%  String adminlink = "//localhost/phpfinals";
+    String logoutlink = "../client/intro.jsp?logout=successfully";
+    String url = "jdbc:mysql://localhost/truck_rentals";%>
+    
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,9 +24,9 @@
         
         <style>
          .headimg{
-            background-image: url(../pics/cityscape.png);
-            background-attachment: fixed;
-            background-position: 50px 190px; 
+            background-image: url(../pics/cityscape.png) ;
+            background-size: cover;
+            background-position: bottom;
          }
       
         .kakanan {
@@ -62,7 +65,7 @@
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
-                        <a class="nav-link" id="logout" style="cursor: pointer">Log out</a>
+                        <a class="nav-link" id="logout" style="cursor: pointer" href="<% out.print(logoutlink); %>">Log out</a>
                 </li>
               </ul>
             </div>
