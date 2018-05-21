@@ -65,9 +65,6 @@
 }
 
 @media screen and (max-width: 1024px){
-    .card-body::-webkit-scrollbar{
-        display: block;
-    }
     .container-fluid{
         width: 100%;
     }

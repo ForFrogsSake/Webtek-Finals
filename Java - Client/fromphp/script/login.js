@@ -44,10 +44,10 @@ $(document).ready(function(){
                                 window.location.replace("/admin/requests.html");
                             }
                             if(data == "client"){
-                                window.location.replace("/admin/requests.html");
+                                window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp");
                             }
                             if(data == "provider"){
-                                window.location.replace("/admin/requests.html");
+                                window.location.replace("http://provider.rentals.com:3000");
                             }
                         });
                     }

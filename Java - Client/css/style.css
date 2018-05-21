@@ -1,0 +1,27 @@
+         .headimg{
+            background-image: url(pics/cityscape.png) ;
+            background-size: cover;
+            background-position: bottom;
+         }
+      
+        .coverimg{
+            background-image: url(pics/cityscape.png); 
+            background-position: center; 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-color: #ffffff;
+            margin-top: 40px;
+        }
+        .kakanan {
+            -webkit-transition: padding-left 0.3s; /* For Safari 3.1 to 6.0 */
+            transition: padding-left 0.3s;
+            transition-timing-function: ease;
+        }
+
+        .kakanan:hover {
+            padding-left: 2%;
+        }
+
+         #truckimg{
+                width: 35%;
+            }
