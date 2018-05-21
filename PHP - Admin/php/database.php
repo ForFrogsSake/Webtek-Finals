@@ -24,7 +24,7 @@ switch ($_POST["function"]) {
         displayTransactions($result);
         break;
     case "management":
-        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, user_type FROM users WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."'";
+        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, user_type, type FROM users LEFT OUTER JOIN admin ON users.user_id = admin.admin_id WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."' AND type <> 'super' OR type IS NULL" ;
         $result = $conn->query($sql);
         displayUsers($result);
         break;
@@ -168,6 +168,9 @@ function displayUsers($result){
                 case "provider":
                     $type = "warning";
                     break;
+                case "admin":
+                    $type = "danger";
+                    break;
             }
             switch($button){
                 case "disabled":
@@ -193,7 +196,7 @@ function displayUsers($result){
                         <td>". $row["date_registered"] ."</td>
                         <td><div class=\"status badge badge-". $status ."\">". $row["status"] ."</div></td>
                         <td><div class=\"type text-". $type ."\">". $row["user_type"] ."</div></td>
-                        <td><button class=\"btn btn-sm btn-". $determiner ."\" style=\"padding: 3px 8px 3px 8px; font-size:12px\">". $button ."</button></td>
+                        <td><button class=\"btn btn-sm btn-". $determiner ." ". $determiner ."\" style=\"padding: 3px 8px 3px 8px; font-size:12px\">". $button ."</button></td>
                 </tr>";
         }
     }
