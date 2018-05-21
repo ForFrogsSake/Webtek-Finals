@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `truck_rentals` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `truck_rentals`;
+-- MySQL dump 10.13  Distrib 5.7.21, for Win32 (AMD64)
 --
 -- Host: localhost    Database: truck_rentals
 -- ------------------------------------------------------
--- Server version	5.7.19
+-- Server version	5.7.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,7 +44,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'82',NULL,'Ilog Baliwag','Quezon',NULL,'Nueva Ecija'),(2,'83',NULL,'Salt',NULL,NULL,'Benguet');
+INSERT INTO `address` VALUES (1,'82',NULL,'Ilog Baliwag','Quezon',NULL,'Nueva Ecija'),(2,'83',NULL,'Salt',NULL,NULL,'Benguet'),(3,'Phase 1',NULL,'Bakakeng',NULL,'Baguio City','Benguet'),(4,'Phase 2',NULL,'Bakakeng',NULL,'Baguio City','Benguet');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,6 +70,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (4,'super');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +152,6 @@ CREATE TABLE `transactions` (
   `rent_end_day` date NOT NULL,
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `transaction_id_UNIQUE` (`transaction_id`),
-  UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
   KEY `truck_id_idx` (`truck_id`),
   KEY `client_id_idx` (`client_id`),
   KEY `provider_id_idx` (`provider_id`),
@@ -188,9 +190,12 @@ CREATE TABLE `trucks` (
   `cost` decimal(30,2) NOT NULL,
   `category` varchar(20) NOT NULL,
   `image` longblob,
-  `status` enum('available','not available') DEFAULT NULL,
+  `status` enum('available','unavailable') NOT NULL,
+  `number_of_wheels` int(2) NOT NULL,
+  `license_number` varchar(15) NOT NULL,
   PRIMARY KEY (`truck_id`,`provider_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
+  UNIQUE KEY `license_number_UNIQUE` (`license_number`),
   KEY `service_provider_idx` (`provider_id`),
   CONSTRAINT `service_provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -202,7 +207,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
-INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'2000 kg',200.00,'Mega',NULL,'available'),(2,2,'Ultra Truck',NULL,'20000 kg',2000.00,'Ultra',NULL,'not available');
+INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'200 kg',200.00,'mega',NULL,'available',10,'ABL 7015'),(2,2,'Ultra Truck',NULL,'2000 kg',2000.00,'ultra',NULL,'available',6,'ACL 7015');
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +245,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','enabled','pending'),(3,'Blessly',NULL,'Carbonell','blessly@gmail.com','+69 472 584 6311','2018-05-16','blehli','blehli','client','enabled','pending');
+INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','enabled','pending'),(3,'Blessly',NULL,'Carbonell','blessly@gmail.com','+69 472 584 6311','2018-05-16','blehli','blehli','client','enabled','pending'),(4,'Kasima',NULL,'Mendoza','kasima@gmail.com','+69 731 684 2357','2018-05-17','Kasima','kasimamendoza','admin','enabled','accepted');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -253,4 +258,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-21 20:13:00
+-- Dump completed on 2018-05-22  3:47:47
