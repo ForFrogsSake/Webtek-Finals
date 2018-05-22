@@ -114,7 +114,9 @@
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
-                              <td></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>
@@ -128,8 +130,9 @@
             </div>
             </div>                  
             </div>
+                        
                  <div class="col-sm-6">       
-                             <!--PENDING-->
+                <!--PENDING-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
@@ -154,6 +157,9 @@
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>
