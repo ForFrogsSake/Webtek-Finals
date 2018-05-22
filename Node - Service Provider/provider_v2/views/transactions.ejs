@@ -14,27 +14,126 @@
 
 <body style="background-color: dimgray">
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <a class="navbar-brand" href="/">Truck Rental</a>
+        <a class="navbar-brand" href="/<%= id %>/transactions">Truck Rental</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
-                <li class=" nav-item">
-                    <a class="nav-link" href="/trucks">Home</a>
-                </li>
                 <li class="active nav-item">
-                    <a class="nav-link" href="/transactions">Transactions</a>
+                    <a class="nav-link" href="/<%= id %>/transactions">Transactions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
+                    <a class="nav-link" href="/<%= id %>/trucks">Trucks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/<%= id %>/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/<%= id %>/logout">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
+    <div>
+        <!-- <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="/sortTruck">Transaction ID</a>
+                    </th>
+                    <th>
+                        <a href="/sortLicense">Truck ID</a>
+                    </th>
+                    <th>
+                        <a href="/sortType">Client ID</a>
+                    </th>
+                </tr>
+            </thead> -->
+        <!-- <tbody id="myTable">
+                <tr data-toggle="modal" data-target="#requestModal">
+                            <td>Elf</td>
+                            <td>Kwan truck</td>
+                            <td>Delivery</td>
+                            <td>Available</td>
+                        </tr>
+                <% for(i in transactions) { %>
+                    <tr>
+                        <td>
+                            <%= transactions[i].transaction_id %>
+                        </td>
+                        <td>
+                            <%= transactions[i].truck_id %>
+                        </td>
+                        <td>
+                            <%= id %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody> -->
+        <!-- </table> -->
+        <div class="container-fluid" style="padding: 20px;">
+            <div class="row">
+                <div class="col-md" style="margin-bottom: 30px;">
+                    <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
+                        <div class="card-header">
+                            <h5 class="text-primary">Client Requests</h5>
+                        </div>
+                        <div class="card-body" id="client">
+                            <% for(i in transactions) { %>
+                                <div class="content">
+                                    <p>
+                                        <strong>ID:
+                                            <%= transactions[i].truck_id %>
+                                        </strong> |
+                                        <span class="text-info">
+                                            <%= transactions[i].name %>
+                                        </span>
+                                        <% var totalCost = transactions[i].cost*transactions[i].number_of_days; %>
+                                            <% var starting_day = transactions[i].rent_start_day %>
+                                                <% var ending_day = transactions[i].rent_end_day %>
+                                                    <span class="text-success">(₱
+                                                        <%= transactions[i].cost %>/day)</span>
+                                                    <br>
+                                                    <small>
+                                                        <span class="text-secondary">leased by </span>
+                                                        <span class="text-warning">
+                                                            <%= transactions[i].username %>
+                                                        </span>
+                                                        <span class="text-secondary">rented by </span>
+                                                        <span class="text-primary">
+                                                            <%= clients[i].username %>
+                                                        </span>
+                                                        <span class="text-secondary">for: </span>
+                                                        <%= transactions[i].number_of_days %>
+                                                            <br>
+                                                            <span class="text-secondary">from </span>
+                                                            <%= starting_day %>
+                                                                <span class="text-secondary">to</span>
+                                                                <%= ending_day %>
+                                                                    <br>
+                                                                    <span class="text-secondary">with a total cost of </span>
+                                                                    <span class="text-success">₱
+                                                                        <%= totalCost %>
+                                                                    </span>
+                                                    </small>
+                                                    <br>
+                                                    <small>
+                                                        <span class="text-secondary">Request Status: </span>
+                                                        <span class="badge">
+                                                            <%= transactions[i].request_status %>
+                                                        </span>
+                                                    </small>
+                                    </p>
+                                </div>
+                                <% } %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

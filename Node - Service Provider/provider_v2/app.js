@@ -11,7 +11,7 @@ var formidable = require('express-formidable');
 var services = require('./routes/services');
 
 var connection = mysql.createConnection({
-  host: '192.168.1.2',
+  host: 'localhost',
   user: 'root',
   password: '',
   database: 'truck_rentals'
@@ -24,7 +24,7 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 3600000, secure: false }
+  cookie: { maxAge: 360000000, secure: false }
 }));
 
 // view engine setup
@@ -54,48 +54,37 @@ app.listen(3000, (err) => {
 });
 
 //GET
-app.get('/', (req, res) => {
+app.get('/:id', (req, res) => {
+  var id = req.params.id;
+  services.getRequests(id,(err,resp,respo) => {
+    res.render('transactions.ejs', {transactions : resp, clients : respo, id : id});
+  });
+});
+
+app.get('/:id/trucks', (req, res) => {
+  var id = req.params.id;
   if (!req.session.user) {
-    services.authenticate(req.fields['username'], req.fields['password'], (err,stat) => {
-      if(!err){
-        if(stat === "approved"){
-          req.session.user = req.fields['username'];
-          res.writeHead(200,{'Content-Type' : 'text/plain'});
-					res.end("1_authenticated");
-        } else {
-          response.writeHead(200,{'Content-Type' : 'text/plain'});
-					response.end("unapproved");
-        }
-      }else{
-        response.writeHead(200,{'Content-Type' : 'text/plain'})
-				response.end("0_unauthenticated");
-      }
-    });
-    res.render('index.ejs');
+    res.render('trucks.ejs', {id : id});
+  } else {
+    console.log("error");
+  }
+});
+
+app.get('/:id/transactions', (req, res) => {
+  var id = req.params.id;
+  if (!req.session.user) {
+    services.getRequests(id,(err,resp,respo) => {
+      res.render('transactions.ejs', {transactions : resp, clients : respo, id : id});
+    })
   } else {
 
   }
 });
 
-app.get('/trucks', (req, res) => {
+app.get('/:id/profile', (req, res) => {
+  var id = req.params.id;
   if (!req.session.user) {
-    res.redirect('/');
-  } else {
-
-  }
-});
-
-app.get('/transactions', (req, res) => {
-  if (!req.session.user) {
-    res.render('transactions.ejs');
-  } else {
-
-  }
-});
-
-app.get('/profile', (req, res) => {
-  if (!req.session.user) {
-    res.render('profile.ejs');
+    res.render('profile.ejs', {id : id});
   } else {
 
   }
@@ -112,7 +101,7 @@ app.get('/register', (req, res) => {
 //POST
 
 app.post('/register', (req, res) => {
-
+  var id = req.params.id;
   var currDate = new Date();
   var date = currDate.getFullYear();
   if (((currDate.getMonth() + 1) < 10)) {
@@ -175,30 +164,246 @@ app.post('/register', (req, res) => {
   })
 });
 
-app.post('/addTruck', (req,res) => {
-  var truck = {
-    name: req.body.name,
-    description: req.body.description,
-    capacity: req.body.capacity,
-    cost: req.body.cost,
-    category: req.body.category,
-    status: 'available',
-    number_of_wheels: req.body.number_of_wheels,
-    license_number: license_number
+app.post('/:id/addTruck', (req, res) => {
+  var id = req.params.id;
+  var sql = "SELECT truck_id FROM trucks ORDER BY truck_id DESC LIMIT 0,1 ";
+
+  connection.query(sql, function (err, row, fields) {
+    if (!err) {
+      var newId = row[0].truck_id + 1;
+      var truck = {
+        truck_id: newId,
+        name: req.body.name,
+        description: req.body.description,
+        capacity: req.body.capacity,
+        cost: req.body.cost,
+        category: req.body.category,
+        status: 'available',
+        number_of_wheels: req.body.number_of_wheels,
+        license_number: license_number
+      }
+
+      var sql = "INSERT INTO truck SET ?";
+
+      connection.query(sql, truck, (err, row, field) => {
+
+      });
+
+    } else {
+
+    }
+  });
+});
+
+app.post('/:id/approve', (req, res) => {
+  var id = req.params.id;
+  var tId = req.body.transaction_id;
+
+  var currDate = new Date();
+  var date = currDate.getFullYear();
+  if (((currDate.getMonth() + 1) < 10)) {
+    date += '-0' + ((currDate.getMonth()) + 1);
+  } else {
+    date += '-' + ((currDate.getMonth()) + 1);
   }
+  date += '-' + currDate.getDate();
+  
+  var sql = "UPDATE transactions SET request_status ='accepted' date_accepted = ? WHERE transaction_id = ?";
+
+  connection.query(sql,[date,tId],(err,row,fields) => {
+    if(err){
+      console.log(err);
+    } else {
+      console.log(row);
+    }
+  })
 });
 
-app.post('/approve', (req,res) => {
+app.post('/reject', (req, res) => {
+  var id = req.body.transaction_id;
 
-});
+  var currDate = new Date();
+  var date = currDate.getFullYear();
+  if (((currDate.getMonth() + 1) < 10)) {
+    date += '-0' + ((currDate.getMonth()) + 1);
+  } else {
+    date += '-' + ((currDate.getMonth()) + 1);
+  }
+  date += '-' + currDate.getDate();
+  
+  var sql = "UPDATE transactions SET request_status ='denied' WHERE transaction_id = ?";
 
-app.post('/reject', (req,res) => {
-
+  connection.query(sql,[date,id],(err,row,fields) => {
+    if(err){
+      console.log(err);
+    } else {
+      console.log(row);
+    }
+  })
 });
 
 app.get('/logout', (req, res) => {
 
 });
 
+app.post('/login', (req, res) => {
+  
+});
+
 module.exports = app;
 
+// app.post('/login', function (request, response) {
+//   'use strict';
+//   var username = request.body.username,
+//       password = sha1(request.body.password),
+//       sql = "Select * from accounts natural join customer where username = '" + username + "';",
+//       reply1 = "<script> alert('Username does not exist'); window.history.back(); </script>",
+//       reply2 = "<script> alert('Wrong password'); window.history.back(); </script>",
+//       reply3 = "<script> alert('You are now logged in'); window.history.back(); </script>";
+//   connection.query(sql, function (err, result, field) {
+//       if (err) {
+//           throw err;
+//       }
+//       if (result.length === 1) {
+//           if (result[0].password === password) {
+//               request.session.loggedin = true;
+//               request.session.username = username;
+//               request.session.email = result[0].email;
+//               request.session.password = password;
+//               request.session.first_name = result[0].first_name;
+//               request.session.last_name = result[0].last_name;
+//               request.session.address = result[0].address;
+//               request.session.birthdate = result[0].birthdate;
+//               request.session.contact = result[0].contact_number;
+//               response.redirect('/');
+//           } else {
+//               response.send(reply2);
+//           }
+
+//       } else {
+//           response.send(reply1);
+//       }
+//   });
+// });
+
+// <style>
+//     body{
+//         display: none;
+//     }
+// </style>
+
+// <?php
+// include 'access_db.php';
+
+// $conn = OpenCon();
+// session_start();
+// $username = $_POST['username'];
+// $password = sha1($_POST['password']);
+
+// $username = mysqli_real_escape_string($conn, $username);
+// $password = mysqli_real_escape_string($conn, $password);
+
+// $sql = "SELECT * FROM accounts where username = '$username';";
+// $result = $conn->query($sql);
+// if (isset($_POST['login'])) {
+
+//     if ($result->num_rows > 0) {
+//         // output data of each row
+//         while ($row = $result->fetch_assoc()) {
+//             if ($row['password'] == $password) {
+//                 switch ($row['status']) {
+//                     case "r":
+//                         echo "
+//                         <script>
+//                             alert('Registration rejected by admin.');
+//                             window.location.replace('/');
+//                         </script>
+//                         ";
+//                         break;
+//                     case "p":
+//                         echo "
+//                         <script>
+//                             alert('Your account is still pending.');
+//                             window.location.replace('/');
+//                         </script>
+//                         ";
+//                         break;
+//                     case "a":
+//                         switch ($row['account_type']) {
+//                             case "sa":
+//                                 $password = $_POST['password'];
+//                                 echo "
+//                                 <form method='POST' action='http://admin.tenterent.com:8080/LoginServlet' id='login_form'>
+//                                 <input type='text' name='username' value='$username'>
+//                                 <input type='password' name='password' value='$password'>
+//                                 <input type='submit' value='login' name='login'>
+//                                 </form>
+//                                 ";
+//                                 break;
+//                             case "sp":
+//                                 $password = $_POST['password'];
+//                                 echo "
+//                                 <form method='POST' action='http://provider.tenterent.com:8082/php/sp_login.php' id='login_form'>
+//                                     <input type='text' name='username' value='$username'>
+//                                     <input type='password' name='password' value='$password'>
+//                                     <input type='submit' value='login' name='login'>
+//                                 </form>
+//                                 ";
+//                                 break;
+//                             case "c":
+//                                 $password = $_POST['password'];
+//                                 echo "
+//                                 <form method='POST' action='http://www.tenterent.com:8081' id='login_form'>
+//                                     <input type='text' name='username' value='$username'>
+//                                     <input type='password' name='password' value='$password'>
+//                                     <input type='submit' value='login' name='login'>
+//                                 </form>
+//                                 ";
+//                                 break;
+//                             case "a":
+//                                 $password = $_POST['password'];
+//                                 echo "
+//                                 <form method='POST' action='http://admin.tenterent.com:8080/LoginServlet' id='login_form'>
+//                                     <input type='text' name='username' value='$username'>
+//                                     <input type='password' name='password' value='$password'>
+//                                     <input type='submit' value='login' name='login'>
+//                                 </form>
+//                                 ";
+//                                 break;
+//                         }
+//                         echo "
+//                         <script>
+//                         window.onload = function(){
+//                             document.getElementById('login_form').submit();
+//                         }
+//                         </script>
+//                         ";
+//                         break;
+//                 }
+
+//             } else {
+
+//                 echo "
+//                     <script>
+//                         alert('Wrong password.');
+//                         window.history.back();
+//                     </script>
+//                 ";
+
+//             }
+//         }
+//     } else {
+//         echo "
+//             <script>
+//                 alert('Account doesn\'t exist.');
+//                 window.history.back();
+//             </script>
+//         ";
+
+//     }
+
+// } else {
+//     echo "Failed";
+// }
+
+// CloseCon($conn);

@@ -47,7 +47,7 @@ $(document).ready(function(){
                                 window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp");
                             }
                             if(data == "provider"){
-                                window.location.replace("http://provider.rentals.com:3000");
+                                window.location.replace("http://provider.rentals.com:3000/2");
                             }
                         });
                     }
