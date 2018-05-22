@@ -17,7 +17,8 @@ $(document).ready(function(){
     $.post("../php/database.php",
     {
         function: "management",
-        username: sessionStorage.getItem("username")
+        username: sessionStorage.getItem("username"),
+        order: "user_id"
     },
     function(data){
         $("tbody").hide().html(data).slideDown("fast");
