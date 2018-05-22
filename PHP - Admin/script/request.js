@@ -75,4 +75,18 @@ $(document).ready(function(){
         });
     }
     
+    $("#searchClient").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#client").find(".row").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    
+    $("#searchProvider").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#provider").find(".row").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    
 });

@@ -24,7 +24,7 @@ switch ($_POST["function"]) {
         displayTransactions($result);
         break;
     case "management":
-        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, user_type, type FROM users LEFT OUTER JOIN admin ON users.user_id = admin.admin_id WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."' AND type <> 'super' OR type IS NULL ORDER BY '".$_POST["order"]."'" ;
+        $sql = "SELECT user_id, username, fname, lname, email, date_registered, status, user_type, type FROM users LEFT OUTER JOIN admin ON users.user_id = admin.admin_id WHERE request_status <> 'pending' AND username <> '".$_POST["username"]."' AND type <> 'super' OR type IS NULL ORDER BY ".$_POST["sort"]." ".$_POST["order"];
         $result = $conn->query($sql);
         displayUsers($result);
         break;
@@ -121,7 +121,7 @@ function displayTransactions($result){
 }
 
 function display($row, $status){
-    echo "<div class=\"col-md-6\">
+    echo "<div class=\"col-md-6 trans\">
             <div class=\"content\">
                 <p>
                     <strong>ID: ". $row["transaction_id"] ."</strong> |
