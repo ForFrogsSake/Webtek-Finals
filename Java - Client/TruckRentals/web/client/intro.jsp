@@ -23,26 +23,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
-        <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-      
-        .kakanan {
-            -webkit-transition: padding-left 0.3s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 0.3s;
-            transition-timing-function: ease;
-        }
-
-        .kakanan:hover {
-            padding-left: 3%;
-        }
-            #truckimg{
-                width: 35%;
-            }
-        </style>
+        
     </head>
 <!--
 1. screenshots para sa user instructions
