@@ -45,8 +45,10 @@
         <style>
         .headimg{
             background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
+            background-size: contain;
             background-position: bottom;
+            background-repeat: repeat-x;
+            height: 60px;
          }
         .kakanan {
             font-size: 30px;
@@ -59,6 +61,17 @@
             padding-left: 60%;
         }
         
+         td {
+            font-size: 16px;
+        }
+        #header {
+            font-size: 20px;
+            font-weight: bold;
+         
+        }
+        th {
+            font-size: 18px;
+        }
         </style>
     </head>
 
@@ -94,7 +107,7 @@
             <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">My Profile</h2>
+                        <p id="header" class="text-dark">My Profile</p>
                     </div>
                 </div>
                     
@@ -118,10 +131,10 @@
                       </tr>
                     </tbody>
                   </table>
-                    
+                                <!--edit profile-->
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>    
                                 
-                <!--edit profile-->
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>
+
                     
                 <form action="../client/editProfile.jsp" method="post" target="_self">
                     <div id="edit" class="collapse" style="background-color: #F1FFFF  ;">
@@ -151,13 +164,12 @@
                         </div>
                         <input type="submit" name="submit" class="btn btn-info" value="save changes">
                     </div>
-                </form>
 
 <!--edit forms end-->        
 
 </div>
+                </form>
 
-</form>
 
 
                     

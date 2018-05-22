@@ -37,9 +37,9 @@
         }
 
         .kakanan:hover {
-            padding-left: 2%;
+            padding-left: 3%;
         }
-                    #truckimg{
+            #truckimg{
                 width: 35%;
             }
         </style>
@@ -84,66 +84,46 @@
                     
             <div class="row">
                 <div class="col-sm-8 ">
-            <div class="card bg-light" style="padding: 10px;">
+            <div class="card" style="padding: 10px;">
             <h4 class="display-7 text-center text-secondary card-title">IT'S EASY!</h4>
-              <div class="card-deck" >     
-                  
-                  
-                 <!--USER RENTING INSTRUCTIONS-->
-                <!--1-->
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header " style="background-color: #82E0AA">
-                    <div>
-                        <h6 class="text-dark kakanan" >1. Choose a truck</h6>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <!--CONTENT-->
-                    Screenshot siguro?
+            <!--user instructions-->        
+           <ul class="nav nav-tabs nav-justified text-dark" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active text-success" data-toggle="tab" href="#first"><h6 class="kakanan">1. Choose a Truck</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" data-toggle="tab" href="#second"><h6 class="kakanan">2. Fill Requirements</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" data-toggle="tab" href="#third"><h6 class="kakanan">3. Request Accepted!</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" data-toggle="tab" href="#fourth"><h6 class="kakanan">4. Rent Again!</h6></a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content bg-none ">
+            <div id="first" class="container tab-pane active"><br>
+              <h5>You can see details for each truck!</h5>
+              <p>screenshot 1</p>
             </div>
-            </div>    
-            <br><br>
-                            
-                <!--2-->
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header " style="background-color: #58D68D  ">
-                    <div>
-                        <h6 class="text-dark kakanan">2. Complete the info</h6>
-                    </div>
-                </div>
-                <div class="card-body">                
-                yes again
+            <div id="second" class="container tab-pane fade"><br>
+              <h5>Fill up needed information!</h5>
+              <p>screenshot 2</p>
             </div>
+            <div id="third" class="container tab-pane fade"><br>
+              <h5>Wait until the Service Provider Accepts your Request..</h5>
+              <p>screen shot 5</p>
             </div>
-            <br><br>
-                    
-                <!--3-->
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header " style="background-color: #2ECC71">
-                    <div>
-                        <h6 class="text-dark kakanan">3. Request Accepted!</h6>
-                    </div>
-                </div>
-                <div class="card-body">
-                yes again again
+            <div id="fourth" class="container tab-pane fade"><br>
+              <h5>Rent Another Truck!</h5>
+              <p>screenshot 4</p>
             </div>
-            </div>
-            <br><br>
-                    
-                <!--4-->
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header " style="background-color: #28B463  ">
-                    <div>
-                        <h6 class="text-dark kakanan">4. Rent Again!</h6>
-                    </div>
-                </div>
-                <div class="card-body">
-                yes again again
-            </div>
-            </div>
-            <br><br>   
-                </div></div><!--end card-->      
+          </div>
             
+            
+        </div>
             </div>
             
             

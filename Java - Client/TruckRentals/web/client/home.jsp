@@ -53,8 +53,10 @@
         <style>
          .headimg{
             background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
+            background-size: contain;
             background-position: bottom;
+            background-repeat: repeat-x;
+            height: 60px;
          }
       
         .kakanan {
@@ -71,12 +73,18 @@
             }
         
             
-            #truckimg{
-                width: 35%;
-            }
-            tbody{
-                font-size: 18px;
-            }
+        td {
+            font-size: 16px;
+        }
+        #header {
+            font-size: 20px;
+            font-weight: bold;
+         
+        }
+        th {
+            font-size: 18px;
+        }
+               
         
         </style>
     </head>
@@ -121,7 +129,7 @@
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h4 class="text-dark" >Accepted Requests</h4>
+                        <p id="header" class="text-dark" >Accepted Requests</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -162,7 +170,7 @@
                 <div class="card-header headimg">
                     <div>
                         <% rs.afterLast(); %>
-                        <h4 class="text-dark">Pending Requests</h4>
+                        <p id="header" class="text-dark">Pending Requests</p>
                  
                     </div>
                 </div>
