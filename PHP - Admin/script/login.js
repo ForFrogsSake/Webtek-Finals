@@ -56,7 +56,7 @@ $(document).ready(function(){
                                         $.post("../php/login.php",
                                         {
                                             query: "type",
-                                            username: $("#username").val()
+                                            username: name
                                         },
                                         function(data){
                                             sessionStorage.setItem("username", name);
@@ -67,7 +67,14 @@ $(document).ready(function(){
                                                 window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp");
                                             }
                                             if(data == "provider"){
-                                                window.location.replace("http://provider.rentals.com:3000");
+                                                $.post("../php/login.php", 
+                                                {
+                                                    query: "user_id",
+                                                    username: name
+                                                }, 
+                                                function(data){
+                                                    window.location.replace("http://provider.rentals.com:3000/"+data);
+                                                });
                                             }
                                         });
                                     }

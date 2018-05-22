@@ -37,6 +37,11 @@ switch ($_POST["query"]) {
         $result = $conn->query($sql);
         returnType($result);
         break;
+    case "user_id":
+        $sql = "SELECT user_id FROM users WHERE username = '".$_POST["username"]."'";
+        $result = $conn->query($sql);
+        returnValue($result, "user_id");
+        break;
 }
 
 function returnValue($result, $type){
@@ -55,6 +60,9 @@ function returnValue($result, $type){
                     break;
                 case "password": 
                     echo $row["password"];
+                    break;
+                case "user_id": 
+                    echo $row["user_id"];
                     break;
             }
         }
