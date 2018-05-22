@@ -3,7 +3,9 @@
     Created on : 05 16, 18, 5:27:16 AM
     Author     : HP
 --%>
-<%  String adminlink = "//localhost/phpfinals";
+
+
+<%  String adminlink = "//logout/phpfinals";
     String logoutlink = "../client/intro.jsp?logout=successfully";
     String url = "jdbc:mysql://localhost/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
@@ -14,7 +16,7 @@
         Connection con = DriverManager.getConnection(url, "root", "");
         PreparedStatement pStatement;
         Statement stm = con.createStatement();
-        ResultSet rs ;//while (rs.next()){
+        ResultSet rs ;
         String query;
         String username = //(String)session.getAttribute("username");
                 "blehli";
@@ -56,15 +58,25 @@
          }
       
         .kakanan {
-            font-size: 25px;
-            -webkit-transition: padding-left 0.5s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 0.5s;
+            -webkit-transition: padding-left 0.3s; /* For Safari 3.1 to 6.0 */
+            transition: padding-left 0.3s;
             transition-timing-function: ease;
         }
 
         .kakanan:hover {
-            padding-left: 15%;
+            padding-left: 2%;
         }
+            #truckimg{
+                width: 35%;
+            }
+        
+            
+            #truckimg{
+                width: 35%;
+            }
+            tbody{
+                font-size: 18px;
+            }
         
         </style>
     </head>
@@ -103,49 +115,34 @@
         <div class="container-fluid lead" style="padding: 20px; margin-top: 55px;">
               <div class="row">
                   
-                  <!--HI-->
-                <div class="col-sm-4">
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header headimg">
-                    <div>
-                        
-                    </div>
-                </div>
-                <div class="card-body">
-                        <!--CONTENT-->
-                       Total Number of Transactions: <% out.println(total); %> <br>
-            </div>
-            </div>
-            </div>
-                  
-                  
-            <br><br>
-                  
             
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                 <!--ACCEPTED-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">Accepted Requests</h2>
+                        <h4 class="text-dark" >Accepted Requests</h4>
                     </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-sm">
                         <tbody>
-                             <thead>
+                        <thead>
                           <tr>
-                            <th>Transaction ID</th>
+                            <th class="w3-third">ID</th>
                             <th>Name of the Truck</th>
                             <th>Service Provider</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <% while (rs.next()){ %>
                             <%if (rs.getString("request_status").equals("accepted")){ %> 
+                            
                             <tr>
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
+                              <td></td>
                             </tr>
                             <% }%>
                         <% }%>
@@ -157,16 +154,15 @@
                 
         
             </div>
+            </div>                  
             </div>
-            
-            <br>
-                        
-                <!--PENDING-->
+                 <div class="col-sm-6">       
+                             <!--PENDING-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
                         <% rs.afterLast(); %>
-                        <h2 class="text-dark">Pending Requests</h2>
+                        <h4 class="text-dark">Pending Requests</h4>
                  
                     </div>
                 </div>
@@ -175,7 +171,7 @@
                     <tbody>
                         <thead>
                           <tr>
-                            <th>Transaction ID</th>
+                            <th class="w3-third">ID</th>
                             <th>Name of the Truck</th>
                             <th>Service Provider</th>
                           </tr>
@@ -195,9 +191,7 @@
         
             </div>
             </div>
-                        
-                    
-            </div>
+              </div>
                     
             </div>
 

@@ -17,7 +17,7 @@
         Connection con = DriverManager.getConnection(url, "root", "");
         PreparedStatement pStatement;
         Statement stm = con.createStatement();
-        ResultSet rs ;//while (rs.next()){
+        ResultSet rs ;
         String query;
         String username = //(String)session.getAttribute("username");
                 "blehli";

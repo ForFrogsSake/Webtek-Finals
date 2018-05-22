@@ -76,22 +76,25 @@
    // if ( request.getParameter("logout").equals("successfully")){
 %>      
       
-        <div class="jumbotron text-center" style="background-image: url(../pics/cityscape.png); background-position: center; background-size: cover; background-repeat: no-repeat; background-color: #ffffff; margin-top: 40px;">
+       <div class="jumbotron text-center" style="background-image: url(../pics/cityscape.png); background-position: center; background-size: cover; background-repeat: no-repeat; background-color: #ffffff; margin-top: 40px;">
         <h2 id="username"></h2>
         <small>A simple way to help your loaded life!</small>
         </div>        
         <div class="container-fluid lead" style="padding: 0px 20px; ">
-
-            <h2 class="display-7 text-center text-secondary">IT'S EASY!</h2>
-            <div class="card-deck">
+                    
+            <div class="row">
+                <div class="col-sm-8 ">
+            <div class="card bg-light" style="padding: 10px;">
+            <h4 class="display-7 text-center text-secondary card-title">IT'S EASY!</h4>
+              <div class="card-deck" >     
                   
                   
-                  <!--USER RENTING INSTRUCTIONS-->
-            <!--1-->
-            <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
+                 <!--USER RENTING INSTRUCTIONS-->
+                <!--1-->
+                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header " style="background-color: #82E0AA">
                     <div>
-                        <h4 class="text-dark kakanan" >1. Choose a truck</h4>
+                        <h6 class="text-dark kakanan" >1. Choose a truck</h6>
                     </div>
                 </div>
                 <div class="card-body">
@@ -105,7 +108,7 @@
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header " style="background-color: #58D68D  ">
                     <div>
-                        <h4 class="text-dark kakanan">2. Complete the info</h4>
+                        <h6 class="text-dark kakanan">2. Complete the info</h6>
                     </div>
                 </div>
                 <div class="card-body">                
@@ -118,7 +121,7 @@
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header " style="background-color: #2ECC71">
                     <div>
-                        <h4 class="text-dark kakanan">3. Request Accepted!</h4>
+                        <h6 class="text-dark kakanan">3. Request Accepted!</h6>
                     </div>
                 </div>
                 <div class="card-body">
@@ -131,7 +134,7 @@
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header " style="background-color: #28B463  ">
                     <div>
-                        <h4 class="text-dark kakanan">4. Rent Again!</h4>
+                        <h6 class="text-dark kakanan">4. Rent Again!</h6>
                     </div>
                 </div>
                 <div class="card-body">
@@ -139,24 +142,16 @@
             </div>
             </div>
             <br><br>   
-            </div><!--end card-->
+                </div></div><!--end card-->      
+            
+            </div>
             
             
-            
-            <!--sample table-->
-                      
-            <div class="row" style="padding-top: 50px;">
-            <div class="col-sm-12">
-            <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                    <div class="card-header headimg" >
-                    <div>
-                        <h2 class="text-dark text-center" data-toggle="tooltip" data-placement="top" title="Select an item to view more details.">FIND A TRUCK</h2>
-                    </div>
-                   </div>
-                    
-                    
-                    
-                    <div  class="lead" style=" margin: 10px">
+                <!--SEARCH-->
+                <div class="col-sm-4">
+                    <div class="card" style="padding: 10px;">
+  
+                     <div  class="lead" style=" margin: 10px">
                   <div class="input-group">
                       <input class="form-control" id="myInput" type="text" placeholder="search a truck name, type, or availability">
                      </div>
@@ -168,7 +163,6 @@
                             <th>Truck</th>
                             <th>Type</th>
                             <th>Category</th>
-                            <th>Availability</th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
@@ -176,33 +170,34 @@
                             <td>Elf</td>
                             <td>Kwan truck</td>
                             <td>Delivery</td>
-                            <td>Available</td>
                           </tr>
                           <tr>
                             <td>Hilux</td>
                             <td>truck</td>
                             <td>Personal</td>
-                            <td>Pending</td>
                           </tr>
                           <tr>
                             <td>Boom</td>
                             <td>Crane</td>
                             <td>Construction</td>
-                            <td>Available</td>
                           </tr>
                           <tr>
-                            <td>other</td>
                             <td>other</td>
                             <td>other</td>
                             <td>other</td>
                           </tr>
                         </tbody>
                       </table>
-                        
-                        
-                        
-                        
-                        
+                         
+                 <!--PAGINATION-->
+                  <ul class="pagination pagination-sm ">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  </ul><!--end pagination-->
+        
                 <!-- REQUEST Modal -->
               <div class="modal fade" id="requestModal">
                 <div class="modal-dialog modal-dialog-centered">
@@ -227,7 +222,7 @@
                     <div class="carousel-item active">
                     <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
                     <!--IMAGE-->
-                      <img src="../pics/ht.jpg" id="truckimg" class="img-thumbnail float-left img-fluid" alt="truckimage">
+                      <img src="pics/ht.jpg" id="truckimg" class="img-thumbnail float-left img-fluid" alt="truckimage">
                       Plate Number: ABC 123<br>
                       Number of Wheels: 10<br>
                       Transmission: manual<br>
@@ -268,14 +263,17 @@
                 </div>
               </div>
             <!--end modal-->
+                </div>                       
+                        
+
+
                 </div>
-                    
-                         
-                    
-                </div>
-            </div>
-        </div>
+            
+                </div></div>
+            
+
     
+
         </div>
  
 <%
@@ -283,3 +281,6 @@
 %>   
     </body>
 </html>
+
+
+

@@ -6,9 +6,7 @@
     String logoutlink = "../client/intro.jsp?logout=successfully"; 
     String adminlink = "//localhost/phpfinals";
     String url = "jdbc:mysql://localhost/truck_rentals";
-    
-    
-    
+
     String action=request.getParameter("action");
     if (action.equals("Register")){
         String fname=request.getParameter("fname");
@@ -22,6 +20,12 @@
         String cardnum = request.getParameter("cardnum");
         String expdate = request.getParameter("exp");
         String cvv = request.getParameter("cvv"); 
+        String housedetails = request.getParameter("housedetails");
+        String street = request.getParameter("street");
+        String barangay = request.getParameter("barangay");
+        String municipality = request.getParameter("municipality");
+        String city = request.getParameter("city");
+        String province = request.getParameter("province");
         java.util.Date exp = new SimpleDateFormat("yyyy-mm-dd").parse(expdate);
         java.sql.Date date = new java.sql.Date(exp.getTime());
 
@@ -55,6 +59,18 @@
                 pStatement.setDate(4, date);
                 pStatement.setString(5, cvv);
                 pStatement.executeUpdate();
+                
+                query= "INSERT INTO address (user_id, house_details, street, barangay, municipality, city, province) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                pStatement = con.prepareStatement(query);
+                pStatement.setInt(1, temp);
+                pStatement.setString(2, housedetails);
+                pStatement.setString(3, street);
+                pStatement.setString(4, barangay);
+                pStatement.setString(5, municipality);
+                pStatement.setString(6, city);
+                pStatement.setString(7, province);
+                pStatement.executeUpdate();    
+                
                  %>
 <%-- 
     Document   : register

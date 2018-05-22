@@ -17,7 +17,7 @@
         ResultSet rs ;
         String query;
 
-        query = "select * from trucks;";
+        query = "select * from trucks inner join users on provider_id=user_id where users.status ='enabled';";
         rs = stm.executeQuery(query);
 
     
@@ -39,11 +39,13 @@
         <script src="../script/transactions.js"></script>
         
         <style>
-         .headimg{
+        .headimg{
             background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
+            background-size: contain;
             background-position: bottom;
-         }
+            background-repeat: repeat-x;
+            height: 60px;
+        }
       
         .kakanan {
             font-size: 30px;
@@ -55,7 +57,21 @@
         .kakanan:hover {
             padding-left: 60%;
         }
-        
+        tr.lastcol {
+            border-left: 0px solid;
+            
+        }
+        td {
+            font-size: 16px;
+        }
+        #header {
+            font-size: 20px;
+            font-weight: bold;
+         
+        }
+        th {
+            font-size: 18px;
+        }
         </style>
     </head>
 
@@ -98,7 +114,7 @@
             <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">Find a Truck</h2>
+                         <p id="header" class="text-dark"> <img width="40vw"src="../pics/favicon.png"> Find a Truck</p></img>
                     </div>
                 </div>
                    
@@ -106,32 +122,42 @@
                       <div class="input-group">
                       <input class="form-control" id="myInput" type="text" placeholder="search a truck name, type, or availability">
                 
-                      <button type="button" class="btn btn-outline-primary btn-lg input-group-addon" data-toggle="modal" data-target="#requestModal">
-                                Rent
-                        </button>
+                      
                      </div>
                       <br>
-                      <table class="table table-bordered table-hover">
+                      <table id="alltrucks" class="table table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th><center>Truck Number</center></th>
+                            <th><center>ID</center></th>
                             <th>Type</th>
                             <th>Category</th>
                             <th>Capacity</th>
                             <th>Cost per day</th>
-                            
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>Plate Number</th>
+                            <th>Cost per day</th>
+                            <th class="lastcol"></th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
-                          <% while (rs.next()){ %>   
-                            <tr href="#demo" data-toggle="collapse">
-                                <td width="3vw"><center><%out.print(rs.getString("truck_id"));%></center></td> 
-                                <td><%out.print(rs.getString("name"));%></td>
-                                <td><%out.print(rs.getString("category"));%></td>
-                                <td><%out.print(rs.getString("capacity"));%></td>
-                                <td><%out.print(rs.getString("cost"));%> </td>
-                                
-                            </tr>
+                          <% while (rs.next()){ %>
+                            
+                                <tr href="#demo" data-toggle="collapse">
+                                    <td align="center" id="truck"><strong><%out.print(rs.getString("truck_id"));%></strong></td> 
+                                    <td><%out.print(rs.getString("name"));%></td>
+                                    <td><%out.print(rs.getString("category"));%></td>
+                                    <td><%out.print(rs.getString("capacity"));%></td>
+                                    <td><%out.print(rs.getString("cost"));%> </td> 
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="lastcol" ><button type="button" class="btn btn-outline-primary btn-lg input-group-addon" data-toggle="modal" data-target="#requestModal">
+                                Rent
+                        </button></td> 
+                                </tr>
+                           
                            <% }%>
                         </tbody>
                       </table>
@@ -147,6 +173,7 @@
                         
                 <!-- REQUEST Modal -->
               <div class="modal fade" id="requestModal">
+                  
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
@@ -158,11 +185,8 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                    <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
+                        <h4 class="text-secondary">TRUCK ID: </h4>
                     <form action="../requestTruck.jsp" method="post" target="_self">
-                    Truck Number
-                      <input name="trucknum" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="XXXXX">
-                        
                         Number of days to rent:
                       <input name="daynum" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
                         
@@ -191,6 +215,9 @@
         
         
     <script>
+        
+   
+        
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -199,7 +226,8 @@
         });
       });
     });
-    </script>
+        
+    </script>   
 
     </body>
 </html>
