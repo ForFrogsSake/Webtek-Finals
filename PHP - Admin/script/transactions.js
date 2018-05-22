@@ -62,6 +62,13 @@ $(document).ready(function(){
         }
     });
     
+    $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".trans").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    
     $("#logout").click(function(){
         sessionStorage.removeItem("username");
         window.location.replace("../index.html");

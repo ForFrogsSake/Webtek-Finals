@@ -3,7 +3,9 @@
     Created on : 05 16, 18, 5:27:16 AM
     Author     : HP
 --%>
-<%  String adminlink = "//localhost/phpfinals";
+
+
+<%  String adminlink = "//logout/phpfinals";
     String logoutlink = "../client/intro.jsp?logout=successfully";
     String url = "jdbc:mysql://localhost/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
@@ -14,7 +16,7 @@
         Connection con = DriverManager.getConnection(url, "root", "");
         PreparedStatement pStatement;
         Statement stm = con.createStatement();
-        ResultSet rs ;//while (rs.next()){
+        ResultSet rs ;
         String query;
         String username = //(String)session.getAttribute("username");
                 "blehli";
@@ -48,25 +50,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
-        <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-      
-        .kakanan {
-            font-size: 25px;
-            -webkit-transition: padding-left 0.5s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 0.5s;
-            transition-timing-function: ease;
-        }
-
-        .kakanan:hover {
-            padding-left: 15%;
-        }
         
-        </style>
     </head>
 
     <body style="background-color: beige">
@@ -80,14 +64,11 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../client/about.jsp">about</a>
-                    </li> 
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
@@ -103,49 +84,36 @@
         <div class="container-fluid lead" style="padding: 20px; margin-top: 55px;">
               <div class="row">
                   
-                  <!--HI-->
-                <div class="col-sm-4">
-                <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
-                <div class="card-header headimg">
-                    <div>
-                        
-                    </div>
-                </div>
-                <div class="card-body">
-                        <!--CONTENT-->
-                       Total Number of Transactions: <% out.println(total); %> <br>
-            </div>
-            </div>
-            </div>
-                  
-                  
-            <br><br>
-                  
             
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                 <!--ACCEPTED-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">Accepted Requests</h2>
+                        <p id="header" class="text-dark" >Accepted Requests</p>
                     </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-sm">
                         <tbody>
-                             <thead>
+                        <thead>
                           <tr>
-                            <th>Transaction ID</th>
+                            <th class="w3-third">ID</th>
                             <th>Name of the Truck</th>
                             <th>Service Provider</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <% while (rs.next()){ %>
                             <%if (rs.getString("request_status").equals("accepted")){ %> 
+                            
                             <tr>
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>
@@ -157,16 +125,16 @@
                 
         
             </div>
+            </div>                  
             </div>
-            
-            <br>
                         
+                 <div class="col-sm-6">       
                 <!--PENDING-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
                         <% rs.afterLast(); %>
-                        <h2 class="text-dark">Pending Requests</h2>
+                        <p id="header" class="text-dark">Pending Requests</p>
                  
                     </div>
                 </div>
@@ -175,7 +143,7 @@
                     <tbody>
                         <thead>
                           <tr>
-                            <th>Transaction ID</th>
+                            <th class="w3-third">ID</th>
                             <th>Name of the Truck</th>
                             <th>Service Provider</th>
                           </tr>
@@ -186,6 +154,9 @@
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>
@@ -195,9 +166,7 @@
         
             </div>
             </div>
-                        
-                    
-            </div>
+              </div>
                     
             </div>
 

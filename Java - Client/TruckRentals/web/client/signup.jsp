@@ -3,10 +3,11 @@
     Created on : 05 14, 18, 9:57:32 PM
     Author     : HP
 --%>
+
 <%  String adminlink = "//localhost/phpfinals";
     String url = "jdbc:mysql://localhost/truck_rentals";%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" name="document">
 <head>
   <title>TRUCK RENTALS | register</title>
   <meta charset="utf-8">
@@ -17,26 +18,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <style>
-      #headimg{
-        width: 100%;
-      }
-      .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-      }
-    </style>
+  
 </head>
 
 <body style="background-color:beige ; margin-top:20px">
 
     <!--CARD REGISTER-->
-    
     <div class="container col-sm-6 lead">
     <div class="card card-register">
         
-        <div class="card-header headimg"><p style="font-size:21px">Sign-up and rent your first truck!</p></div>
+        <div class="card-header headimg text-bold"><p style="font-size:21px"><center>Sign-up and rent your first truck!</center></p></div>
         <div class="card-body">
 	    <!--inputs-->
         <form action="../client/registercheck.jsp" method="post" target="_self">
@@ -45,35 +36,36 @@
             <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputName">First name</label>
-                <input name="fname" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+                <input name="fname" class="form-control" id="fname" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
               </div>
+      
               <div class="col-md-6">
                 <label for="exampleInputLastName">Last name</label>
-                <input name="lname" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
+                <input name="lname" class="form-control" id="lname" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
               </div>
             </div>
           </div>
 		  <div class="form-group">
             <label for="exampleInputEmail1">User name</label>
-            <input name="uname" class="form-control" id="exampleInputUserName" type="username" aria-describedby="nameHelp" placeholder="Enter username">
+            <input name="uname" class="form-control" id="uname" type="username" aria-describedby="nameHelp" placeholder="Enter username">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input name="email" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input name="email" class="form-control" id="email" type="email" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
 		  <div class="form-group">
             <label for="exampleInputEmail1">Phone number</label>
-            <input name="phone" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter phone number">
+            <input name="phone" class="form-control" id="phone" type="number" aria-describedby="numberHelp" placeholder="Enter phone number">
           </div>
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputPassword1">Password</label>
-                <input name="pass" class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                <input name="pass" class="form-control" id="pass" type="password" placeholder="Password">
               </div>
               <div class="col-md-6">
                 <label for="exampleConfirmPassword">Confirm password</label>
-                <input name="repass" class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                <input name="repass" class="form-control" id="repass" type="password" placeholder="Confirm password">
               </div>
             </div>
           </div>
@@ -83,21 +75,57 @@
             <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputPassword1">Type of card</label>
-                <input name="cardtype" class="form-control" id="exampleInputPassword1" type="text" placeholder="Card type">
+                <input name="cardtype" class="form-control" id="cardtype" type="text" placeholder="Card type">
               </div>
               <div class="col-md-6">
                 <label for="exampleConfirmPassword">Card number</label>
-                <input name="cardnum" class="form-control" id="exampleConfirmPassword" type="text" placeholder="xxxxxxxxxxxxx">
+                <input name="cardnum" class="form-control" id="cardnum" type="text" placeholder="xxxxxxxxxxxxx">
               </div>
             </div>
               <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputPassword1">Expiration date</label>
-                <input name="exp" class="form-control" id="exampleInputPassword1" type="date" placeholder="YYYY-MM-DD">
+                <input name="exp" class="form-control" id="expdate" type="date" placeholder="YYYY-MM-DD">
               </div>
               <div class="col-md-6">
                 <label for="exampleConfirmPassword">Card cvv2</label>
-                <input name="cvv" class="form-control" id="exampleConfirmPassword" type="text" placeholder="ccv2">
+                <input name="cvv" class="form-control" id="cvv" type="text" placeholder="ccv2">
+              </div>
+            </div>
+          </div>
+           
+          <!-- Address --> 
+              
+          <div class="form-group">
+              <div class="text-left text-secondary" style="font-size:25px">Address Information</div>
+             <div class="form-row">
+                   <div class="col-md-6">
+                        <label for="">House Details</label>
+                        <input name="housedetails" class="form-control" id="housedet" type="text" placeholder="House number, etc.">
+                   </div>
+                   <div class="col-md-6">
+                        <label for="">Street</label>
+                        <input name="street" class="form-control" id="street" type="text" placeholder="Street">
+                   </div>
+             </div>            
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="exampleConfirmPassword">Barangay</label>
+                <input name="barangay" class="form-control" id="barangay" type="text" placeholder="Barangay">
+              </div>
+              <div class="col-md-6">
+                <label for="exampleInputPassword1">Municipality</label>
+                <input name="municipality" class="form-control" id="minicipality" type="textss" placeholder="Municipality">
+              </div>    
+            </div>
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="exampleConfirmPassword">City</label>
+                <input name="city" class="form-control" id="city" type="text" placeholder="City">
+              </div>
+              <div class="col-md-6">
+                <label for="exampleInputPassword1">Province</label>
+                <input name="province" class="form-control" id="province" type="text" placeholder="Province">
               </div>
             </div>
           </div>

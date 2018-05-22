@@ -6,11 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="../pics/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 		<script src ="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"></script>
 		<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
         <style>
@@ -99,10 +101,10 @@
                       <table class="table table-bordered table-hover" id = "myTable">
                         <thead id = "myTable">
                           <tr>
-                            <th>Truck</th>
-                            <th>Type</th>
-                            <th>Category</th>
-                            <th>Availability</th>
+                           <th><b>Truck</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Type</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Category</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Availability</b><i class="fa fa-fw fa-sort"></i></th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
@@ -223,7 +225,10 @@
 	
 	<script>
 $(document).ready(function() {
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+	"searching":false,
+	"pagingType": "numbers"
+	});
 } );
 </script>
 	

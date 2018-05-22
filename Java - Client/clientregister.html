@@ -9,6 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="register.js"></script>
   <style>
       #headimg{
         width: 100%;
@@ -32,46 +33,46 @@
         <div class="card-header headimg"><p style="font-size:21px">Sign-up and rent your first truck!</p></div>
         <div class="card-body">
 	    <!--inputs-->
-        <form>
+        <form class="regform" method="POST" id="registerform" name="regform">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputName">First name</label>
-                <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+                <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name" name="fname">
               </div>
               <div class="col-md-6">
                 <label for="exampleInputLastName">Last name</label>
-                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
+                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name" name="lname">
               </div>
             </div>
           </div>
 		  <div class="form-group">
             <label for="exampleInputEmail1">User name</label>
-            <input class="form-control" id="exampleInputUserName" type="username" aria-describedby="nameHelp" placeholder="Enter username">
+            <input class="form-control" id="exampleInputUserName" type="username" aria-describedby="nameHelp" placeholder="Enter username" name="username">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
           </div>
 		  <div class="form-group">
             <label for="exampleInputEmail1">Phone number</label>
-            <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter phone number">
+            <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter phone number" name="phone_number">
           </div>
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <label for="exampleInputPassword1">Password</label>
-                <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password" name="password">
               </div>
               <div class="col-md-6">
                 <label for="exampleConfirmPassword">Confirm password</label>
-                <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password" name="repassword">
               </div>
             </div>
           </div>
 		  <!--register button-->
             
-          <input type="submit" name="submit" class="btn btn-outline-info btn-block" value="Register"/>
+          <input type="submit" name="submit" class="btn btn-outline-info btn-block" value="Register" onclick="numbersonly(document.regform.fname)"/>
             
         </form>
 		<!--return to login page-->
@@ -91,6 +92,19 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  
+  <script>
+  function numbersonly(inputtxt){
+	var numbers = /^[0-9]+$/;
+		if(inputtxt.value.contains(numbers))
+			{
+			alert('No numerical values allowed');
+			document.regform.fname.focus();
+			return true;
+			}
+  }
+  </script>
+  
 </body>
 </html>
 

@@ -17,7 +17,7 @@
         ResultSet rs ;
         String query;
 
-        query = "select * from trucks;";
+        query = "select * from trucks inner join users on provider_id=user_id where users.status ='enabled';";
         rs = stm.executeQuery(query);
 
     
@@ -38,25 +38,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
         
-        <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-      
-        .kakanan {
-            font-size: 30px;
-            -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 2s;
-            transition-timing-function: ease-in;
-        }
-
-        .kakanan:hover {
-            padding-left: 60%;
-        }
         
-        </style>
     </head>
 
     <body style="background-color: beige">
@@ -70,14 +52,11 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../client/about.jsp">about</a>
-                    </li> 
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
@@ -98,7 +77,7 @@
             <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">Find a Truck</h2>
+                         <p id="header" class="text-dark"> <img width="40vw"src="../pics/favicon.png"> Find a Truck</p></img>
                     </div>
                 </div>
                    
@@ -106,32 +85,42 @@
                       <div class="input-group">
                       <input class="form-control" id="myInput" type="text" placeholder="search a truck name, type, or availability">
                 
-                      <button type="button" class="btn btn-outline-primary btn-lg input-group-addon" data-toggle="modal" data-target="#requestModal">
-                                Rent
-                        </button>
+                      
                      </div>
                       <br>
-                      <table class="table table-bordered table-hover">
+                      <table id="alltrucks" class="table table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th><center>Truck Number</center></th>
+                            <th><center>ID</center></th>
                             <th>Type</th>
                             <th>Category</th>
                             <th>Capacity</th>
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>Plate Number</th>
                             <th>Cost per day</th>
-                            
+                            <th>Provider</th>
+                            <th class="lastcol"></th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
-                          <% while (rs.next()){ %>   
-                            <tr href="#demo" data-toggle="collapse">
-                                <td width="3vw"><center><%out.print(rs.getString("truck_id"));%></center></td> 
-                                <td><%out.print(rs.getString("name"));%></td>
-                                <td><%out.print(rs.getString("category"));%></td>
-                                <td><%out.print(rs.getString("capacity"));%></td>
-                                <td><%out.print(rs.getString("cost"));%> </td>
-                                
-                            </tr>
+                          <% while (rs.next()){ %>
+                            
+                                <tr href="#demo" data-toggle="collapse">
+                                    <td align="center" id="truck"><strong><%out.print(rs.getString("truck_id"));%></strong></td> 
+                                    <td><%out.print(rs.getString("name"));%></td>
+                                    <td><%out.print(rs.getString("category"));%></td>
+                                    <td><%out.print(rs.getString("capacity"));%></td>
+                                    <td><%out.print(rs.getString("model"));%> </td>
+                                    <td><%out.print(rs.getString("color"));%> </td>
+                                    <td class="license"><%out.print(rs.getString("license_number"));%> </td>
+                                    <td><%out.print(rs.getString("cost"));%> </td>
+                                    <td class="provider"><%out.print(rs.getString("fname") + " " + (rs.getString("lname")));%> </td>
+                                    <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-success" data-toggle="modal" data-target="#requestModal">
+                                Rent
+                        </button></td> 
+                                </tr>
+                           
                            <% }%>
                         </tbody>
                       </table>
@@ -147,6 +136,7 @@
                         
                 <!-- REQUEST Modal -->
               <div class="modal fade" id="requestModal">
+                  
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
@@ -158,22 +148,20 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                    <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
-                    <form action="../requestTruck.jsp" method="post" target="_self">
-                    Truck Number
-                      <input name="trucknum" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="XXXXX">
-                        
+                        <h4 class="text-secondary" id="displaytruckid">TRUCK ID: </h4>
+                    <form action="../client/requestTruck.jsp" method="post" target="_self">
+                        <input name="truckid" type="hidden" id="truckidnito" value="" >
                         Number of days to rent:
-                      <input name="daynum" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
+                      <input name="daynum" class="form-control" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
                         
                         Starting day of use:
-                      <input name="startdate" class="form-control" id="exampleInputNumber" type="date" aria-describedby="numberHelp" placeholder="Enter starting date">
+                      <input name="startdate" class="form-control" type="date" aria-describedby="numberHelp" placeholder="Enter starting date">
                         
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                   <input name="submit" type="button" class="btn btn-success" value="Send Request"/>
+                   <input name="submit" type="submit" class="btn btn-success" value="Send Request"/>
                    </form>
                   <button type="button" class="btn btn-warning text-light" data-dismiss="modal">Close</button>
                     </div>
@@ -191,15 +179,26 @@
         
         
     <script>
+        
+    $(function(){
+       $(".rentbtn").on("click", function() {
+           var x = $(this).parent().parent().find("strong").text();
+           $("#displaytruckid").html("TRUCK ID: "+x );
+           $("#truckidnito").attr('value',x);
+       });
+    });
+        
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#myTable tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
+        
       });
     });
-    </script>
+        
+    </script>   
 
     </body>
 </html>

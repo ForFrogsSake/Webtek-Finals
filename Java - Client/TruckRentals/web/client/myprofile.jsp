@@ -17,7 +17,7 @@
         Connection con = DriverManager.getConnection(url, "root", "");
         PreparedStatement pStatement;
         Statement stm = con.createStatement();
-        ResultSet rs ;//while (rs.next()){
+        ResultSet rs ;
         String query;
         String username = //(String)session.getAttribute("username");
                 "blehli";
@@ -42,24 +42,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
         
-        <style>
-        .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-        .kakanan {
-            font-size: 30px;
-            -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 2s;
-            transition-timing-function: ease-in;
-        }
-
-        .kakanan:hover {
-            padding-left: 60%;
-        }
-        
-        </style>
+       
     </head>
 
     <body style="background-color: beige">
@@ -73,14 +56,11 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../client/about.jsp">about</a>
-                    </li> 
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
@@ -94,7 +74,7 @@
             <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h2 class="text-dark">My Profile</h2>
+                        <p id="header" class="text-dark">My Profile</p>
                     </div>
                 </div>
                     
@@ -118,10 +98,10 @@
                       </tr>
                     </tbody>
                   </table>
-                    
+                                <!--edit profile-->
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>    
                                 
-                <!--edit profile-->
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>
+
                     
                 <form action="../client/editProfile.jsp" method="post" target="_self">
                     <div id="edit" class="collapse" style="background-color: #F1FFFF  ;">
@@ -151,13 +131,12 @@
                         </div>
                         <input type="submit" name="submit" class="btn btn-info" value="save changes">
                     </div>
-                </form>
 
 <!--edit forms end-->        
 
 </div>
+                </form>
 
-</form>
 
 
                     

@@ -36,6 +36,20 @@
     margin-top: 15px;
 }
 
+.sort{
+    color: #505050;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.sort:hover{
+    background-color: #f0f0f0;
+    cursor: pointer;
+    color: #000000;
+}
+
 @media screen and (max-width: 1024px){
     .card-body::-webkit-scrollbar{
         display: block;
