@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `truck_rentals` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `truck_rentals`;
--- MySQL dump 10.13  Distrib 5.7.21, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: truck_rentals
 -- ------------------------------------------------------
--- Server version	5.7.21
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -161,7 +159,7 @@ CREATE TABLE `transactions` (
   CONSTRAINT `client` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `truck` FOREIGN KEY (`truck_id`) REFERENCES `trucks` (`truck_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +168,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,2,1,'pending',NULL,8,'2018-05-12','2018-05-20'),(2,2,2,1,'accepted','2018-05-13',5,'2018-05-15','2018-05-20');
+INSERT INTO `transactions` VALUES (1,1,2,1,'pending',NULL,8,'2018-05-12','2018-05-20'),(2,2,2,1,'accepted','2018-05-13',5,'2018-05-15','2018-05-20'),(3,1,2,3,'pending',NULL,6,'2018-01-08','2018-01-14'),(4,2,2,3,'pending',NULL,3,'2018-01-08','2018-01-11');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,6 +191,8 @@ CREATE TABLE `trucks` (
   `status` enum('available','unavailable') NOT NULL,
   `number_of_wheels` int(2) NOT NULL,
   `license_number` varchar(15) NOT NULL,
+  `model` varchar(45) DEFAULT NULL,
+  `color` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`truck_id`,`provider_id`),
   UNIQUE KEY `truck_id_UNIQUE` (`truck_id`),
   UNIQUE KEY `license_number_UNIQUE` (`license_number`),
@@ -207,7 +207,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
-INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'200 kg',200.00,'mega',NULL,'available',10,'ABL 7015'),(2,2,'Ultra Truck',NULL,'2000 kg',2000.00,'ultra',NULL,'available',6,'ACL 7015');
+INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'200 kg',200.00,'mega',NULL,'available',10,'ABL 7015',NULL,NULL),(2,2,'Ultra Truck',NULL,'2000 kg',2000.00,'ultra',NULL,'available',6,'ACL 7015',NULL,NULL);
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,4 +258,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-22  3:47:47
+-- Dump completed on 2018-05-23  0:50:45

@@ -50,35 +50,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
-        <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-      
-        .kakanan {
-            -webkit-transition: padding-left 0.3s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 0.3s;
-            transition-timing-function: ease;
-        }
-
-        .kakanan:hover {
-            padding-left: 2%;
-        }
-            #truckimg{
-                width: 35%;
-            }
         
-            
-            #truckimg{
-                width: 35%;
-            }
-            tbody{
-                font-size: 18px;
-            }
-        
-        </style>
     </head>
 
     <body style="background-color: beige">
@@ -92,14 +64,11 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../client/about.jsp">about</a>
-                    </li> 
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
@@ -121,7 +90,7 @@
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
-                        <h4 class="text-dark" >Accepted Requests</h4>
+                        <p id="header" class="text-dark" >Accepted Requests</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -142,7 +111,9 @@
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
-                              <td></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>
@@ -156,13 +127,14 @@
             </div>
             </div>                  
             </div>
+                        
                  <div class="col-sm-6">       
-                             <!--PENDING-->
+                <!--PENDING-->
                 <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
                 <div class="card-header headimg">
                     <div>
                         <% rs.afterLast(); %>
-                        <h4 class="text-dark">Pending Requests</h4>
+                        <p id="header" class="text-dark">Pending Requests</p>
                  
                     </div>
                 </div>
@@ -182,6 +154,9 @@
                               <td><% out.print(rs.getInt("transaction_id")); %></td>
                               <td><% out.print(rs.getString("name")); %></td>
                               <td><% out.print(rs.getString("provider")); %></td>
+                              <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-danger btn-sm" >
+                                cancel
+                        </button></td>
                             </tr>
                             <% }%>
                         <% }%>

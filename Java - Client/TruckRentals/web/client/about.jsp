@@ -22,25 +22,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
         
-        <style>
-         .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: cover;
-            background-position: bottom;
-         }
-      
-        .kakanan {
-            font-size: 30px;
-            -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 2s;
-            transition-timing-function: ease-in;
-        }
-
-        .kakanan:hover {
-            padding-left: 60%;
-        }
-        
-        </style>
     </head>
 
     <body style="background-color: beige">

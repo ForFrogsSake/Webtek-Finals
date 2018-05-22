@@ -91,16 +91,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <style>
-      #headimg{
-        width: 100%;
-      }
-      .headimg{
-            background-image: url(../pics/cityscape.png);
-            background-attachment: fixed;
-            background-position: 50px 150px; 
-      }
-    </style>
+  
 </head>
 
 <body style="background-color:beige ; margin-top:20px">

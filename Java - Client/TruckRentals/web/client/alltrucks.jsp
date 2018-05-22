@@ -38,41 +38,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
         
-        <style>
-        .headimg{
-            background-image: url(../pics/cityscape.png) ;
-            background-size: contain;
-            background-position: bottom;
-            background-repeat: repeat-x;
-            height: 60px;
-        }
-      
-        .kakanan {
-            font-size: 30px;
-            -webkit-transition: padding-left 2s; /* For Safari 3.1 to 6.0 */
-            transition: padding-left 2s;
-            transition-timing-function: ease-in;
-        }
-
-        .kakanan:hover {
-            padding-left: 60%;
-        }
-        tr.lastcol {
-            border-left: 0px solid;
-            
-        }
-        td {
-            font-size: 16px;
-        }
-        #header {
-            font-size: 20px;
-            font-weight: bold;
-         
-        }
-        th {
-            font-size: 18px;
-        }
-        </style>
+        
     </head>
 
     <body style="background-color: beige">
@@ -86,14 +52,11 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../client/about.jsp">about</a>
-                    </li> 
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
                 <li class="nav-item active">
@@ -132,11 +95,11 @@
                             <th>Type</th>
                             <th>Category</th>
                             <th>Capacity</th>
-                            <th>Cost per day</th>
                             <th>Model</th>
                             <th>Color</th>
                             <th>Plate Number</th>
                             <th>Cost per day</th>
+                            <th>Provider</th>
                             <th class="lastcol"></th>
                           </tr>
                         </thead>
@@ -148,12 +111,12 @@
                                     <td><%out.print(rs.getString("name"));%></td>
                                     <td><%out.print(rs.getString("category"));%></td>
                                     <td><%out.print(rs.getString("capacity"));%></td>
-                                    <td><%out.print(rs.getString("cost"));%> </td> 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="lastcol" ><button type="button" class="btn btn-outline-primary btn-lg input-group-addon" data-toggle="modal" data-target="#requestModal">
+                                    <td><%out.print(rs.getString("model"));%> </td>
+                                    <td><%out.print(rs.getString("color"));%> </td>
+                                    <td class="license"><%out.print(rs.getString("license_number"));%> </td>
+                                    <td><%out.print(rs.getString("cost"));%> </td>
+                                    <td class="provider"><%out.print(rs.getString("fname") + " " + (rs.getString("lname")));%> </td>
+                                    <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-success" data-toggle="modal" data-target="#requestModal">
                                 Rent
                         </button></td> 
                                 </tr>
@@ -185,19 +148,20 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <h4 class="text-secondary">TRUCK ID: </h4>
-                    <form action="../requestTruck.jsp" method="post" target="_self">
+                        <h4 class="text-secondary" id="displaytruckid">TRUCK ID: </h4>
+                    <form action="../client/requestTruck.jsp" method="post" target="_self">
+                        <input name="truckid" type="hidden" id="truckidnito" value="" >
                         Number of days to rent:
-                      <input name="daynum" class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
+                      <input name="daynum" class="form-control" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
                         
                         Starting day of use:
-                      <input name="startdate" class="form-control" id="exampleInputNumber" type="date" aria-describedby="numberHelp" placeholder="Enter starting date">
+                      <input name="startdate" class="form-control" type="date" aria-describedby="numberHelp" placeholder="Enter starting date">
                         
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                   <input name="submit" type="button" class="btn btn-success" value="Send Request"/>
+                   <input name="submit" type="submit" class="btn btn-success" value="Send Request"/>
                    </form>
                   <button type="button" class="btn btn-warning text-light" data-dismiss="modal">Close</button>
                     </div>
@@ -216,7 +180,13 @@
         
     <script>
         
-   
+    $(function(){
+       $(".rentbtn").on("click", function() {
+           var x = $(this).parent().parent().find("strong").text();
+           $("#displaytruckid").html("TRUCK ID: "+x );
+           $("#truckidnito").attr('value',x);
+       });
+    });
         
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
@@ -224,6 +194,7 @@
         $("#myTable tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
+        
       });
     });
         
