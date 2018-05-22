@@ -26,28 +26,52 @@ $(document).ready(function(){
             } else{
                 $.post("../php/login.php",
                 {
-                    query: "password",
-                    password: $("#password").val()
+                    query: "request_status",
+                    username: name
                 },
                 function(data){
-                    if(data !== $("#password").val() || $("#password").val() == ""){
-                        $("#prompt").text("Invalid password").fadeIn("fast");
+                    if(data == "pending"){
+                        $("#prompt").text("Your account request is still being reviewed").fadeIn("fast");
+                    } else if(data == "denied"){
+                        $("#prompt").text("Your account request has been denied due to your violation of our policies").fadeIn("fast");
                     } else{
                         $.post("../php/login.php",
                         {
-                            query: "type",
-                            username: $("#username").val()
+                            query: "status",
+                            username: name
                         },
                         function(data){
-                            sessionStorage.setItem("username", name);
-                            if(data == "admin"){
-                                window.location.replace("/admin/requests.html");
-                            }
-                            if(data == "client"){
-                                window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp");
-                            }
-                            if(data == "provider"){
-                                window.location.replace("http://provider.rentals.com:3000/2");
+                            if(data == "disabled"){
+                                $("#prompt").text("Your account has been disabled due to your violation of our policies").fadeIn("fast");
+                            } else{
+                                $.post("../php/login.php",
+                                {
+                                    query: "password",
+                                    password: $("#password").val()
+                                },
+                                function(data){
+                                    if(data !== $("#password").val() || $("#password").val() == ""){
+                                        $("#prompt").text("Invalid password").fadeIn("fast");
+                                    } else{
+                                        $.post("../php/login.php",
+                                        {
+                                            query: "type",
+                                            username: $("#username").val()
+                                        },
+                                        function(data){
+                                            sessionStorage.setItem("username", name);
+                                            if(data == "admin"){
+                                                window.location.replace("/admin/requests.html");
+                                            }
+                                            if(data == "client"){
+                                                window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp");
+                                            }
+                                            if(data == "provider"){
+                                                window.location.replace("http://provider.rentals.com:3000");
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }

@@ -17,6 +17,16 @@ switch ($_POST["query"]) {
         $result = $conn->query($sql);
         returnValue($result, "username");
         break;
+    case "request_status":
+        $sql = "SELECT request_status FROM users WHERE username = '".$_POST["username"]."'";
+        $result = $conn->query($sql);
+        returnValue($result, "request_status");
+        break;
+    case "status":
+        $sql = "SELECT status FROM users WHERE username = '".$_POST["username"]."'";
+        $result = $conn->query($sql);
+        returnValue($result, "status");
+        break;
     case "password":
         $sql = "SELECT password FROM users WHERE password = '".$_POST["password"]."'";
         $result = $conn->query($sql);
@@ -36,6 +46,12 @@ function returnValue($result, $type){
             switch ($type){
                 case "username": 
                     echo $row["username"];
+                    break;
+                case "request_status": 
+                    echo $row["request_status"];
+                    break;
+                case "status": 
+                    echo $row["status"];
                     break;
                 case "password": 
                     echo $row["password"];
