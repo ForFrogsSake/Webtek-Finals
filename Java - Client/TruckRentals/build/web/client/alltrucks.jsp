@@ -17,6 +17,7 @@
         ResultSet rs ;
         String query;
 
+        String username = request.getParameter("username");
         query = "select * from trucks inner join users on provider_id=user_id where users.status ='enabled';";
         rs = stm.executeQuery(query);
 
@@ -43,7 +44,7 @@
 
     <body style="background-color: beige">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="../client/home.jsp">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
+            <a class="navbar-brand" href="../client/home.jsp?username=<% out.print(username); %>">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -52,10 +53,10 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp?username=<% out.print(username); %>">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp?username=<% out.print(username); %>">my profile</a>
                     </li>
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
@@ -125,12 +126,7 @@
                         </tbody>
                       </table>
                         
-                <% }catch (SQLException e){
-                        out.println(e);
-                   }catch (Exception e){
-                        out.println(e);
-                   }%>                
-
+            
                         
                         
                         
@@ -149,7 +145,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <h4 class="text-secondary" id="displaytruckid">TRUCK ID: </h4>
-                    <form action="../client/requestTruck.jsp" method="post" target="_self">
+                    <form action="../client/requestTruck.jsp?username=<% out.print( username); %>" method="post" target="_self">
                         <input name="truckid" type="hidden" id="truckidnito" value="" >
                         Number of days to rent:
                       <input name="daynum" class="form-control" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
@@ -177,7 +173,12 @@
                 </div>
             </div>
         
-        
+<% }catch (SQLException e){
+               out.println(e);
+          }catch (Exception e){
+               out.println(e);
+          }%>                
+   
     <script>
         
     $(function(){

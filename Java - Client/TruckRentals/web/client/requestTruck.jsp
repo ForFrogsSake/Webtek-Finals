@@ -8,8 +8,7 @@
          import= "java.util.Calendar" %>
 
 <% 
-       String username = //(String)session.getAttribute("username");
-               "blehli";
+       String username = request.getParameter("username");
        int trucknum =Integer.parseInt(request.getParameter("truckid"));
        int daynum =Integer.parseInt(request.getParameter("daynum"));  
        String startdate = request.getParameter("startdate");
@@ -89,7 +88,7 @@
 		<!--return to login page-->            </center>
 
         <div class="text-center">
-          <a class="d-block small mt-4" href="../client/alltrucks.jsp" >Go Back</a>
+          <a class="d-block small mt-4" href="../client/alltrucks.jsp?username=<% out.print(username); %>" >Go Back</a>
         </div>
       </div>
     </div>

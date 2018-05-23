@@ -7,8 +7,23 @@
     String logoutlink = "../client/intro.jsp?logout=successfully";     
     String url = "jdbc:mysql://localhost/truck_rentals";%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"
+        import ="java.sql.*"%>
+<% 
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, "root", "");
+        PreparedStatement pStatement;
+        Statement stm = con.createStatement();
+        ResultSet rs ;
+        String query;
 
+        String username = request.getParameter("username");
+        query = "select * from trucks inner join users on provider_id=user_id where users.status ='enabled';";
+        rs = stm.executeQuery(query);
+
+    
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +46,7 @@
 -->
     <body style="background-color: beige">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="../client/home.jsp">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
+            <a class="navbar-brand" href="../client/intro.jsp">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -87,19 +102,19 @@
           <div class="tab-content bg-none ">
             <div id="first" class="container tab-pane active"><br>
               <h5>You can see details for each truck!</h5>
-              <p>screenshot 1</p>
+              
             </div>
             <div id="second" class="container tab-pane fade"><br>
               <h5>Fill up needed information!</h5>
-              <p>screenshot 2</p>
+              
             </div>
             <div id="third" class="container tab-pane fade"><br>
               <h5>Wait until the Service Provider Accepts your Request..</h5>
-              <p>screen shot 5</p>
+              
             </div>
             <div id="fourth" class="container tab-pane fade"><br>
               <h5>Rent Another Truck!</h5>
-              <p>screenshot 4</p>
+              
             </div>
           </div>
             
@@ -119,37 +134,51 @@
                     
                       <br>
                       <table class="table table-bordered table-hover">
+                      <table id="alltrucks" class="table table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Truck</th>
+                            <th><center>ID</center></th>
                             <th>Type</th>
                             <th>Category</th>
+                            <th>Capacity</th>
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>Plate Number</th>
+                            <th>Cost per day</th>
+                            <th>Provider</th>
+                            <th class="lastcol"></th>
                           </tr>
                         </thead>
                         <tbody id="myTable">
-                          <tr data-toggle="modal" data-target="#requestModal">
-                            <td>Elf</td>
-                            <td>Kwan truck</td>
-                            <td>Delivery</td>
-                          </tr>
-                          <tr>
-                            <td>Hilux</td>
-                            <td>truck</td>
-                            <td>Personal</td>
-                          </tr>
-                          <tr>
-                            <td>Boom</td>
-                            <td>Crane</td>
-                            <td>Construction</td>
-                          </tr>
-                          <tr>
-                            <td>other</td>
-                            <td>other</td>
-                            <td>other</td>
-                          </tr>
+                          <% while (rs.next()){ %>
+                            
+                                <tr href="#demo" data-toggle="collapse">
+                                    <td align="center" id="truck"><strong><%out.print(rs.getString("truck_id"));%></strong></td> 
+                                    <td><%out.print(rs.getString("name"));%></td>
+                                    <td><%out.print(rs.getString("category"));%></td>
+                                    <td><%out.print(rs.getString("capacity"));%></td>
+                                    <td><%out.print(rs.getString("model"));%> </td>
+                                    <td><%out.print(rs.getString("color"));%> </td>
+                                    <td class="license"><%out.print(rs.getString("license_number"));%> </td>
+                                    <td><%out.print(rs.getString("cost"));%> </td>
+                                    <td class="provider"><%out.print(rs.getString("fname") + " " + (rs.getString("lname")));%> </td>
+                                    <td class="lastcol" ><button id="rentbtn" type="button" class="rentbtn btn btn-success" data-toggle="modal" data-target="#requestModal">
+                                Rent
+                        </button></td> 
+                                </tr>
+                           
+                           <% }%>
                         </tbody>
                       </table>
-                         
+                      </table>
+           
+<% }catch (SQLException e){
+        out.println(e);
+   }catch (Exception e){
+        out.println(e);
+   }%>                
+
+                                                
                  <!--PAGINATION-->
                   <ul class="pagination pagination-sm ">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -159,8 +188,9 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                   </ul><!--end pagination-->
         
-                <!-- REQUEST Modal -->
+               <!-- REQUEST Modal -->
               <div class="modal fade" id="requestModal">
+                  
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
@@ -172,51 +202,15 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        
-                    <!--TRUCK MORE DETAILS -->
-                    <div id="demo" class="carousel slide" data-ride="carousel" data-interval="false">
-                  <ul class="carousel-indicators">
-                    <li data-target="#demo" data-slide-to="0" class="active"></li>
-                    <li data-target="#demo" data-slide-to="1"></li>
-                  </ul>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
-                    <!--IMAGE-->
-                      <img src="pics/ht.jpg" id="truckimg" class="img-thumbnail float-left img-fluid" alt="truckimage">
-                      Plate Number: ABC 123<br>
-                      Number of Wheels: 10<br>
-                      Transmission: manual<br>
-                      OTHER DETAIL: yes<br>
-                    </div>
-                    <!--RENT REQUEST SLIDE-->
-                    <div class="carousel-item">
-                    <h4 class="text-secondary">TRUCK NAME - SERVICE PROVIDER</h4>
-                    <div class="row">
-                        <div class="col-sm-11">
-                      Number of days to rent:
-                      <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
-                        </div></div>
-                        <div class="row">
-                        <div class="col-sm-11">
-                        Starting day of use:
-                      <input class="form-control" id="exampleInputNumber" type="number" aria-describedby="numberHelp" placeholder="Enter starting date"> 
-                            </div></div>
-                        
-                    </div>
-
-                  </div>
-                   <!--right controls -->
-                    <a class="carousel-control-next" href="#demo" data-slide="next" style="width: 20px;">
-                        <span class="carousel-control-next-icon bg-secondary"></span>
-                        </a>
-                </div>
-                        
+                        <h4 class="text-secondary" id="displaytruckid">TRUCK ID: </h4>
+                    <form action="<% out.print(adminlink); %>" method="post" target="_self">
+                       
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                   <button type="button" class="btn btn-success" ><a class="text-light" href="#">login first</a></button>
+                   <input name="submit" type="submit" class="btn btn-success" value="Send Request"/>
+                   </form>
                   <button type="button" class="btn btn-warning text-light" data-dismiss="modal">Close</button>
                     </div>
 

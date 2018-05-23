@@ -19,8 +19,7 @@
         Statement stm = con.createStatement();
         ResultSet rs ;
         String query;
-        String username = //(String)session.getAttribute("username");
-                "blehli";
+        String username = request.getParameter("username");
         query = "select concat(fname, ' ', lname) as full , username, email, phone_number, password from users where username='"+username+"';";
         rs = stm.executeQuery(query);
         rs.next();
@@ -47,7 +46,7 @@
 
     <body style="background-color: beige">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="../client/home.jsp">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
+            <a class="navbar-brand" href="../client/home.jsp?username=<%out.print(username);%>">Truck Rentals <img src="../pics/truck.png" width="25px" height="25px"></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -56,10 +55,10 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="../client/alltrucks.jsp">all trucks</a>
+                        <a class="nav-link text-light" href="../client/alltrucks.jsp?username=<%out.print(username);%>">all trucks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="../client/myprofile.jsp">my profile</a>
+                        <a class="nav-link text-light" href="../client/myprofile.jsp?username=<%out.print(username);%>">my profile</a>
                     </li>
                 </ul>
               <ul class="nav-item navbar-nav ml-auto justify-content-end">
@@ -103,7 +102,7 @@
                                 
 
                     
-                <form action="../client/editProfile.jsp" method="post" target="_self">
+                <form action="../client/editProfile.jsp?username=<% out.print(username); %>" method="post" target="_self">
                     <div id="edit" class="collapse" style="background-color: #F1FFFF  ;">
  
                 <!--edit forms-->

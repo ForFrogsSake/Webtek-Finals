@@ -1,46 +1,32 @@
-<%-- 
-    Document   : editProfile
-    Created on : 05 16, 18, 9:23:44 AM
-    Author     : HP
---%>
 <%  String adminlink = "//localhost/phpfinals";
-    String logoutlink = "../client/intro.jsp?logout=successfully"; 
+    String logoutlink = "../client/intro.jsp?logout=successfully";
     String url = "jdbc:mysql://localhost/truck_rentals";%>
-<%@page contentType="text/html" pageEncoding="UTF-8"
-        import = "java.sql.*" %>
-<%
-   String newPhone = request.getParameter("newphone");
-   String oldpass = request.getParameter("oldpass");
-   String newpass = request.getParameter("newpass");
-   String repass = request.getParameter("repass");
-   
-   if ( !newpass.equals(repass)){
-       response.setHeader("Location","../client/myprofile.jsp");
-   }
-   try {
- %>
- <%
+
+<%@ page import="java.sql.*"
+         import= "java.text.SimpleDateFormat" 
+         import= "java.util.Date"
+         import= "java.util.Calendar" %>
+
+<% 
+       String username = request.getParameter("username");
+       int transacid =Integer.parseInt(request.getParameter("transacid"));
+       String reason =request.getParameter("reason");  
+       
+     try {
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, "root", "");
         PreparedStatement pStatement;
         Statement stm = con.createStatement();
         ResultSet rs ;
         String query;
-        String username = request.getParameter("username");
 
-           if (newPhone == null){
-               query = "UPDATE users SET password='"+newpass+"' WHERE username='"+username+"';";
-           }else if (!newpass.equals(null)){
-               query = "UPDATE users SET phone_number='"+newPhone+"' WHERE username='"+username+"';";
-           } else {
-               query = "UPDATE users SET phone_number='"+newPhone+"', password='"+newpass+"' WHERE username='"+username+"';";
-           }
-           
-           pStatement = con.prepareStatement(query);
-           pStatement.executeUpdate();
-           
+        query = "UPDATE transactions SET request_status='cancelled', reason_of_cancellation='"+reason+"' WHERE transaction_id='"+transacid+"';";
+        pStatement = con.prepareStatement(query);
+        pStatement.executeUpdate();
+
 %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"
+        import="java.io.File"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,11 +52,11 @@
         <div class="card-header headimg"><p style="font-size:21px"></p></div>
         <div class="card-body">
             <center><!--inputs-->
-            You have successfully created changes in your account information.<br>
+            You have successfully cancelled your transaction.<br>
 		<!--return to login page-->            </center>
 
         <div class="text-center">
-          <a class="d-block small mt-4" href="../client/myprofile.jsp?username=<% out.print(username); %>" >Go Back</a>
+          <a class="d-block small mt-4" href="../client/home.jsp?username=<% out.print(username); %>" >Go Back</a>
         </div>
       </div>
     </div>
@@ -83,11 +69,11 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>
 </html>
-<%
-           
-    }catch (SQLException e){
-         out.println(e);
-    }catch (Exception e){
-         out.println(e);
-    }
-%>
+
+<% }catch (SQLException e){
+        out.println(e);
+   }catch (Exception e){
+        out.println(e);
+}%>                
+
+                        
