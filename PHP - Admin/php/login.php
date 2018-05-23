@@ -42,6 +42,14 @@ switch ($_POST["query"]) {
         $result = $conn->query($sql);
         returnValue($result, "user_id");
         break;
+    case "change":
+        $sql = "UPDATE users SET password = '".$_POST["password"]."' WHERE username = '".$_POST["username"]."'";
+        if ($conn->query($sql) === TRUE) {
+            echo "success";
+        } else {
+            echo "failed";
+        }
+        break;
 }
 
 function returnValue($result, $type){

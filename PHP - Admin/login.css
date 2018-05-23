@@ -10,6 +10,10 @@
     margin-top: 20px;
 }
 
+.change{
+    margin: 20px 0px 20px 0px;
+}
+
 @media screen and (max-width: 1024px){
     #field{
         width: 100%;
