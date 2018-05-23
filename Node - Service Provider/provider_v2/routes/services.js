@@ -41,6 +41,7 @@ exports.addTruck = function (user,truck,callback){
 	});
 
 }
+
 exports.getTrucks = function(user,callback){
 
 	var trucks = [];
@@ -65,7 +66,7 @@ exports.getRequests = function(user,callback){
 	var transactions = [];
 	var clients = [];
 
-	var sql = "SELECT * FROM transactions INNER JOIN users ON transactions.provider_id = users.user_id INNER JOIN trucks ON transactions.truck_id = trucks.truck_id WHERE transactions.provider_id = ?";
+	var sql = "SELECT a.*, b.user_id, b.fname, b.lname, b.email,b.phone_number, b.date_registered, b.username, b.password, b.user_type, b.status, c.* FROM transactions AS a INNER JOIN users AS b ON a.provider_id = b.user_id INNER JOIN trucks AS c ON a.truck_id = c.truck_id WHERE a.provider_id = ?;";
 
 	connection.query(sql,[user],(err,res,fields) => {
 		console.log(err);
@@ -76,8 +77,7 @@ exports.getRequests = function(user,callback){
 			for(i in res){
 				transactions[i] = res[i];
 			}
-			var sql = "SELECT * FROM transactions INNER JOIN users ON transactions.client_id = users.user_id INNER JOIN trucks ON transactions.truck_id = trucks.truck_id WHERE transactions.provider_id = ?";
-
+			var sql = "SELECT a.*, b.user_id, b.fname, b.lname, b.email,b.phone_number, b.date_registered, b.username, b.password, b.user_type, b.status, c.* FROM transactions AS a INNER JOIN users AS b ON a.client_id = b.user_id INNER JOIN trucks AS c ON a.truck_id = c.truck_id WHERE a.provider_id = ?";
 			connection.query(sql,[user],(err,resp,fields) => {
 			console.log(err);
 			console.log(res);
