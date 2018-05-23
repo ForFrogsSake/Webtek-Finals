@@ -54,6 +54,10 @@ app.listen(3000, (err) => {
 });
 
 //GET
+app.get('/register', (req, res) => {
+  res.render('register.ejs');
+});
+
 app.get('/:id', (req, res) => {
   var id = req.params.id;
   services.getRequests(id,(err,resp,respo) => {
@@ -81,18 +85,10 @@ app.get('/:id/transactions', (req, res) => {
   }
 });
 
-app.get('/:id/profile', (req, res) => {
+app.get('/:id/addTruck', (req, res) => {
   var id = req.params.id;
   if (!req.session.user) {
-    res.render('profile.ejs', {id : id});
-  } else {
-
-  }
-});
-
-app.get('/register', (req, res) => {
-  if (!req.session.user) {
-    res.sendFile(path.join(__dirname + '/public/html/register.html'));
+    res.render('addTruck.ejs', {id : id});
   } else {
 
   }
@@ -127,34 +123,33 @@ app.post('/register', (req, res) => {
   var sql = 'SELECT username FROM users WHERE username = ?';
 
   connection.query(sql, req.body.username, (err, resp, fields) => {
-    if (res[0]) {
-      console.log(resp[0]);
-      console.log("Username taken.");
-      res.status(500).send('Username already taken.');
+    if (resp[0]) {
+      var mes = 'Username already taken';
+      res.render('register.ejs', {message : mes});
     } else {
       var sql = 'SELECT email FROM users WHERE email = ?';
 
-      connection.query(sql, req.body.email, (err, resp, fields) => {
-        if (res[0]) {
-          console.log(resp[0]);
-          console.log("Email taken.");
-          res.status(500).send('Email already taken.');
+      connection.query(sql, req.body.email, (err, respo, fields) => {
+        if (respo[0]) {
+          var mes = 'Email already taken';
+          res.render('register.ejs', {message : mes});
         } else {
           var sql = 'SELECT phone_number FROM users WHERE phone_number = ?';
 
-          connection.query(sql, req.body.number, (err, resp, fields) => {
+          connection.query(sql, req.body.number, (err, respos, fields) => {
             console.log(resp[0]);
-            if (resp[0]) {
-              console.log("Phone number taken.");
-              res.status(500).send('Phone number already taken.');
+            if (respos[0]) {
+              var mes = 'Phone number already taken';
+              res.render('register.ejs', {message : mes});
             } else {
-              console.log("Okay.");
               var sql = 'INSERT INTO users SET ?';
 
-              connection.query(sql, newProvider, (err, respo, fields) => {
+              connection.query(sql, newProvider, (err, respons, fields) => {
                 console.log(err);
-                console.log(respo);
+                console.log(respons);
                 console.log(fields);
+                var mes = 'Registration completed';
+                res.render('register.ejs', {message : mes});
               })
             }
           })
@@ -169,35 +164,48 @@ app.post('/:id/addTruck', (req, res) => {
   var sql = "SELECT truck_id FROM trucks ORDER BY truck_id DESC LIMIT 0,1 ";
 
   connection.query(sql, function (err, row, fields) {
-    if (!err) {
+    if (!err || row[0] == null) {
       var newId = row[0].truck_id + 1;
       var truck = {
         truck_id: newId,
+        provider_id: req.params.id,
         name: req.body.name,
         description: req.body.description,
         capacity: req.body.capacity,
         cost: req.body.cost,
         category: req.body.category,
-        status: 'available',
+        status: req.body.status,
         number_of_wheels: req.body.number_of_wheels,
-        license_number: license_number
+        license_number: req.body.license_number
       }
 
-      var sql = "INSERT INTO truck SET ?";
+      var sql = "INSERT INTO trucks SET ?";
 
       connection.query(sql, truck, (err, row, field) => {
+        if(err){
+          console.log(err);
+          var mes = 'License number already taken';
+          res.render('addTruck.ejs', {id : id , message : mes});
+        } else if(row){
+          console.log(row);
+          var mes = 'Truck successfully added';
+          res.render('addTruck.ejs', {id : id, message : mes});
+        }
 
       });
 
     } else {
-
+      console.log(err);
     }
   });
 });
 
 app.post('/:id/approve', (req, res) => {
   var id = req.params.id;
-  var tId = req.body.transaction_id;
+  var tId = req.body.transaction
+  
+  console.log(id);
+  console.log(tId);
 
   var currDate = new Date();
   var date = currDate.getFullYear();
@@ -208,38 +216,38 @@ app.post('/:id/approve', (req, res) => {
   }
   date += '-' + currDate.getDate();
   
-  var sql = "UPDATE transactions SET request_status ='accepted' date_accepted = ? WHERE transaction_id = ?";
+  var sql = "UPDATE transactions SET request_status ='accepted', date_accepted = ? WHERE transaction_id = ?";
 
   connection.query(sql,[date,tId],(err,row,fields) => {
     if(err){
       console.log(err);
-    } else {
+    } else if(row){
       console.log(row);
+      services.getRequests(id,(err,resp,respo) => {
+        res.render('transactions.ejs', {transactions : resp, clients : respo, id : id});
+      })
     }
-  })
+  });
+
 });
 
-app.post('/reject', (req, res) => {
-  var id = req.body.transaction_id;
-
-  var currDate = new Date();
-  var date = currDate.getFullYear();
-  if (((currDate.getMonth() + 1) < 10)) {
-    date += '-0' + ((currDate.getMonth()) + 1);
-  } else {
-    date += '-' + ((currDate.getMonth()) + 1);
-  }
-  date += '-' + currDate.getDate();
+app.post('/:id/deny', (req, res) => {
+  var id = req.params.id;
+  var tId = req.body.transaction;
   
   var sql = "UPDATE transactions SET request_status ='denied' WHERE transaction_id = ?";
 
-  connection.query(sql,[date,id],(err,row,fields) => {
+  connection.query(sql,[tId],(err,row,fields) => {
     if(err){
       console.log(err);
-    } else {
+    } else if(row){
+      console.log("row");
       console.log(row);
+      services.getRequests(id,(err,resp,respo) => {
+        res.render('transactions.ejs', {transactions : resp, clients : respo, id : id});
+      })
     }
-  })
+  });
 });
 
 app.get('/logout', (req, res) => {

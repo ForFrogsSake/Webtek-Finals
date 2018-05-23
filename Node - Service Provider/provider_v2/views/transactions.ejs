@@ -5,7 +5,7 @@
     <title>Truck Rentals</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="./public/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/<%= id %>/trucks">Trucks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/<%= id %>/profile">Profile</a>
+                    <a class="nav-link" href="/<%= id %>/addTruck">Add Truck</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/<%= id %>/logout">Logout</a>
@@ -36,42 +36,6 @@
         </div>
     </nav>
     <div>
-        <!-- <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        <a href="/sortTruck">Transaction ID</a>
-                    </th>
-                    <th>
-                        <a href="/sortLicense">Truck ID</a>
-                    </th>
-                    <th>
-                        <a href="/sortType">Client ID</a>
-                    </th>
-                </tr>
-            </thead> -->
-        <!-- <tbody id="myTable">
-                <tr data-toggle="modal" data-target="#requestModal">
-                            <td>Elf</td>
-                            <td>Kwan truck</td>
-                            <td>Delivery</td>
-                            <td>Available</td>
-                        </tr>
-                <% for(i in transactions) { %>
-                    <tr>
-                        <td>
-                            <%= transactions[i].transaction_id %>
-                        </td>
-                        <td>
-                            <%= transactions[i].truck_id %>
-                        </td>
-                        <td>
-                            <%= id %>
-                        </td>
-                    </tr>
-                    <% } %>
-            </tbody> -->
-        <!-- </table> -->
         <div class="container-fluid" style="padding: 20px;">
             <div class="row">
                 <div class="col-md" style="margin-bottom: 30px;">
@@ -79,9 +43,9 @@
                         <div class="card-header">
                             <h5 class="text-primary">Client Requests</h5>
                         </div>
-                        <div class="card-body" id="client">
+                        <div class="card-body row" id="client">
                             <% for(i in transactions) { %>
-                                <div class="content">
+                                <div class="col-md-6 content">
                                     <p>
                                         <strong>ID:
                                             <%= transactions[i].truck_id %>
@@ -100,12 +64,12 @@
                                                         <span class="text-warning">
                                                             <%= transactions[i].username %>
                                                         </span>
-                                                        <span class="text-secondary">rented by </span>
+                                                        <span class="text-secondary">requested/rented by </span>
                                                         <span class="text-primary">
                                                             <%= clients[i].username %>
                                                         </span>
                                                         <span class="text-secondary">for: </span>
-                                                        <%= transactions[i].number_of_days %>
+                                                        <%= transactions[i].number_of_days %> days
                                                             <br>
                                                             <span class="text-secondary">from </span>
                                                             <%= starting_day %>
@@ -118,12 +82,18 @@
                                                                     </span>
                                                     </small>
                                                     <br>
-                                                    <small>
-                                                        <span class="text-secondary">Request Status: </span>
-                                                        <span class="badge">
-                                                            <%= transactions[i].request_status %>
-                                                        </span>
-                                                    </small>
+                                                    <div class="row">
+                                                            <div class="col-md-10">
+                                                                <span class="text-secondary">Request Status: </span>
+                                                                <span class="badge">
+                                                                    <%= transactions[i].request_status %>
+                                                                </span>
+                                                            </div>
+                                                        <% if(transactions[i].request_status == 'pending') { %>
+                                                            <% include partials/requests %>
+                                                        <% } %>
+                                                        </div>
+                                                    
                                     </p>
                                 </div>
                                 <% } %>
