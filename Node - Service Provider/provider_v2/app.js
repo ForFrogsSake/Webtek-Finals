@@ -67,11 +67,9 @@ app.get('/:id', (req, res) => {
 
 app.get('/:id/trucks', (req, res) => {
   var id = req.params.id;
-  if (!req.session.user) {
-    res.render('trucks.ejs', {id : id});
-  } else {
-    console.log("error");
-  }
+  services.getRequests(id,(err,resp,respo) => {
+    res.render('trucks.ejs', {transactions : resp, clients : respo, id : id});
+  });
 });
 
 app.get('/:id/transactions', (req, res) => {
@@ -88,7 +86,7 @@ app.get('/:id/transactions', (req, res) => {
 app.get('/:id/addTruck', (req, res) => {
   var id = req.params.id;
   if (!req.session.user) {
-    res.render('addTruck.ejs', {id : id});
+    res.render('addTruck.ejs', {id : id, message : ""});
   } else {
 
   }
