@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "192.168.5.81";
 $username = "root";
 $password = "";
 $dbname = "truck_rentals";
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 switch ($_POST["function"]) {
     case "requests":
         $type = "'".$_POST["type"]."'";
-        $sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province FROM users JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending' ORDER BY users.date_registered";
+        $sql = "SELECT username, fname, lname, email, phone_number, house_details, street, barangay, municipality, city, province FROM users LEFT JOIN address USING (user_id) WHERE user_type = ".$type." and request_status = 'pending' ORDER BY users.date_registered";
         $result = $conn->query($sql);
         displayRequests($result);
         break;

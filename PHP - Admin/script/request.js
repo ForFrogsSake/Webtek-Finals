@@ -30,7 +30,7 @@ $(document).ready(function(){
     
     $("#logout").click(function(){
         sessionStorage.removeItem("username");
-        window.location.replace("../index.html");
+        window.location.replace("http://client.rentals.com:8084/TruckRentals/client/intro.jsp");
     });
     
     function denyHandler(){

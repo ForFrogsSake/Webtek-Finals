@@ -63,14 +63,14 @@ $(document).ready(function(){
                             } else{
                                 $.post("../php/login.php",
                                 {
-                                    query: "password",
-                                    password: $("#changePassword").val()
+                                    query: "email",
+                                    email: $("#changeEmail").val()
                                 },
                                 function(data){
-                                    if($("#changePassword").val() == ""){
-                                        $("#changePrompt").text("Old password not provided").fadeIn("fast");
+                                    if($("#changeEmail").val() == ""){
+                                        $("#changePrompt").text("Email not provided").fadeIn("fast");
                                     } else if(data == ""){
-                                        $("#changePrompt").text("Old password is incorrect").fadeIn("fast");
+                                        $("#changePrompt").text("Email is incorrect").fadeIn("fast");
                                     } else if($("#newPassword").val() == ""){
                                         $("#changePrompt").text("New password not provided").fadeIn("fast");
                                     } else if($("#newPassword").val().length < 8){
@@ -157,7 +157,7 @@ $(document).ready(function(){
                                                 window.location.replace("/admin/requests.html");
                                             }
                                             if(data == "client"){
-                                                window.location.replace("http://192.168.1.6:8084/TruckRentals/client/home.jsp?username="+name);
+                                                window.location.replace("http://client.rentals.com:8084/TruckRentals/client/home.jsp?username="+name);
                                             }
                                             if(data == "provider"){
                                                 $.post("../php/login.php", 

@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "192.168.5.81";
 $username = "root";
 $password = "";
 $dbname = "truck_rentals";
@@ -16,6 +16,11 @@ switch ($_POST["query"]) {
         $sql = "SELECT username FROM users WHERE username = '".$_POST["username"]."'";
         $result = $conn->query($sql);
         returnValue($result, "username");
+        break;
+    case "email":
+        $sql = "SELECT email FROM users WHERE email = '".$_POST["email"]."'";
+        $result = $conn->query($sql);
+        returnValue($result, "email");
         break;
     case "request_status":
         $sql = "SELECT request_status FROM users WHERE username = '".$_POST["username"]."'";
@@ -59,6 +64,9 @@ function returnValue($result, $type){
             switch ($type){
                 case "username": 
                     echo $row["username"];
+                    break;
+                case "email": 
+                    echo $row["email"];
                     break;
                 case "request_status": 
                     echo $row["request_status"];
