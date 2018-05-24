@@ -113,6 +113,10 @@ function displayTransactions($result){
                     $status = "danger";
                     display($row, $status);
                     break;
+                case "cancelled":
+                    $status = "dark";
+                    display($row, $status);
+                    break;
             }
         }
     } else {

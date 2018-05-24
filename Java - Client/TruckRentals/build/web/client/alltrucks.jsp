@@ -3,9 +3,9 @@
     Created on : 05 16, 18, 6:57:12 AM
     Author     : HP
 --%>
-<%  String adminlink = "//localhost/phpfinals";
+<%  String adminlink = "http://rentals.com";
     String logoutlink = "../client/intro.jsp?logout=successfully";
-    String url = "jdbc:mysql://localhost/truck_rentals";%>
+    String url = "jdbc:mysql://192.168.5.81/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
         import ="java.sql.*"%>
 <% 
@@ -38,6 +38,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
         <script src="../script/transactions.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css"></script>
+	
+        
         
         
     </head>
@@ -84,27 +90,27 @@
                    
                     <div  class="lead" style=" margin: 10px">
                       <div class="input-group">
-                      <input class="form-control" id="myInput" type="text" placeholder="search a truck name, type, or availability">
+           
                 
                       
                      </div>
                       <br>
-                      <table id="alltrucks" class="table table-bordered table-hover">
+                      <table id="myTable" class="table table-bordered table-hover">
                         <thead>
                           <tr>
                             <th><center>ID</center></th>
-                            <th>Type</th>
-                            <th>Category</th>
-                            <th>Capacity</th>
-                            <th>Model</th>
-                            <th>Color</th>
-                            <th>Plate Number</th>
-                            <th>Cost per day</th>
-                            <th>Provider</th>
+                            <th><b>Type</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Category</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Capacity</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Model</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Color</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Plate Number</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Cost per day</b><i class="fa fa-fw fa-sort"></i></th>
+                            <th><b>Provider</b><i class="fa fa-fw fa-sort"></i></th>
                             <th class="lastcol"></th>
                           </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody>
                           <% while (rs.next()){ %>
                             
                                 <tr href="#demo" data-toggle="collapse">
@@ -148,7 +154,7 @@
                     <form action="../client/requestTruck.jsp?username=<% out.print( username); %>" method="post" target="_self">
                         <input name="truckid" type="hidden" id="truckidnito" value="" >
                         Number of days to rent:
-                      <input name="daynum" class="form-control" type="number" aria-describedby="numberHelp" placeholder="Enter number of days">
+                      <input name="daynum" class="form-control" type="number" aria-describedby="numberHelp" placeholder="Enter number of days" min = "1">
                         
                         Starting day of use:
                       <input name="startdate" class="form-control" type="date" aria-describedby="numberHelp" placeholder="Enter starting date">
@@ -189,17 +195,14 @@
        });
     });
         
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
-        
-      });
-    });
-        
     </script>   
-
+	<script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+	"searching":true,
+	"pagingType": "numbers"
+	});
+} );
+</script>
     </body>
 </html>

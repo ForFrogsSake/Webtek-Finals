@@ -1,11 +1,11 @@
 <%@ page import="java.sql.*"
          import= "java.text.SimpleDateFormat" 
          import= "java.util.Date" %>    
-
+<%  String adminlink = "http://rentals.com";
+    String logoutlink = "../client/intro.jsp?logout=successfully";
+    String url = "jdbc:mysql://192.168.5.81/truck_rentals";%>
 <%  
-    String logoutlink = "../client/intro.jsp?logout=successfully"; 
-    String adminlink = "//localhost/phpfinals";
-    String url = "jdbc:mysql://localhost/truck_rentals";
+    
 
     String action=request.getParameter("action");
     if (action.equals("Register")){
@@ -87,6 +87,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
   <link rel="icon" href="pics/favicon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

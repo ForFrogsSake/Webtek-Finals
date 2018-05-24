@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: truck_rentals
 -- ------------------------------------------------------
--- Server version	5.7.19
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,7 +42,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'82',NULL,'Ilog Baliwag','Quezon',NULL,'Nueva Ecija'),(2,'83',NULL,'Salt',NULL,NULL,'Benguet'),(3,'Phase 1',NULL,'Bakakeng',NULL,'Baguio City','Benguet'),(4,'Phase 2',NULL,'Bakakeng',NULL,'Baguio City','Benguet');
+INSERT INTO `address` VALUES (1,'82',NULL,'Ilog Baliwag','Quezon',NULL,'Nueva Ecija'),(2,'83',NULL,'Salt',NULL,NULL,'Benguet'),(3,'Phase 1',NULL,'Bakakeng',NULL,'Baguio City','Benguet'),(4,'Phase 2',NULL,'Bakakeng',NULL,'Baguio City','Benguet'),(5,'San Carlos Heights Extension','San Carlos','San Carlos Heights','Benguet','Baguio City','Benguet'),(7,'7','Dahlia','Poro','','San Fernando','La Union'),(8,'90','','','','','Benguet'),(9,'23','qwe','asd','czx','qwe','dsa'),(14,'78','gomez','sample','sample','sample','sample');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (4,'super');
+INSERT INTO `admin` VALUES (4,'super'),(7,'regular'),(8,'regular');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'123456789','paymaya','2018-05-15',123),(3,'12458','debit','2018-01-08',2451);
+INSERT INTO `client` VALUES (1,'123456789','paymaya','2018-05-15',123),(3,'12458','debit','2018-01-08',2451),(5,'1212212586489','student','2019-01-01',5468),(14,'235689','credit','2023-01-01',1234);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,11 +143,12 @@ CREATE TABLE `transactions` (
   `truck_id` int(10) NOT NULL,
   `provider_id` int(10) NOT NULL,
   `client_id` int(10) NOT NULL,
-  `request_status` enum('accepted','denied','pending') NOT NULL,
+  `request_status` enum('cancelled','accepted','denied','pending') NOT NULL,
   `date_accepted` date DEFAULT NULL,
   `number_of_days` int(11) NOT NULL,
   `rent_start_day` date NOT NULL,
   `rent_end_day` date NOT NULL,
+  `reason_of_cancellation` text,
   PRIMARY KEY (`transaction_id`),
   UNIQUE KEY `transaction_id_UNIQUE` (`transaction_id`),
   KEY `truck_id_idx` (`truck_id`),
@@ -159,7 +160,7 @@ CREATE TABLE `transactions` (
   CONSTRAINT `client` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `provider` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `truck` FOREIGN KEY (`truck_id`) REFERENCES `trucks` (`truck_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +169,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,2,1,'pending',NULL,8,'2018-05-12','2018-05-20'),(2,2,2,1,'accepted','2018-05-13',5,'2018-05-15','2018-05-20'),(3,1,2,3,'pending',NULL,6,'2018-01-08','2018-01-14'),(4,2,2,3,'pending',NULL,3,'2018-01-08','2018-01-11');
+INSERT INTO `transactions` VALUES (1,1,2,1,'accepted','2018-05-24',8,'2018-05-12','2018-05-20',NULL),(2,2,2,1,'accepted','2018-05-13',5,'2018-05-15','2018-05-20',NULL),(3,1,2,3,'accepted','2018-05-24',6,'2018-01-08','2018-01-14',NULL),(4,2,2,3,'cancelled',NULL,3,'2018-01-08','2018-01-11','kasiiiii'),(5,1,2,3,'accepted','2018-05-24',5,'2019-01-05','2019-01-10',NULL),(6,1,2,14,'cancelled','2018-05-24',5,'2018-01-20','2018-01-25','trip ko lang');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +208,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
-INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'200 kg',200.00,'mega',NULL,'available',10,'ABL 7015',NULL,NULL),(2,2,'Ultra Truck',NULL,'2000 kg',2000.00,'ultra',NULL,'available',6,'ACL 7015',NULL,NULL);
+INSERT INTO `trucks` VALUES (1,2,'Mega Truck',NULL,'200 kg',200.00,'mega',NULL,'available',10,'ABL 7015',NULL,NULL),(2,2,'Ultra Truck',NULL,'2000 kg',2000.00,'ultra',NULL,'available',6,'ACL 7015',NULL,NULL),(3,2,'mysampletruck',NULL,'100',500.00,'Mini Truck',NULL,'available',4,'AYA 2015',NULL,NULL);
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,7 +246,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','disabled','pending'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','enabled','pending'),(3,'Blessly',NULL,'Carbonell','blessly@gmail.com','+69 472 584 6311','2018-05-16','blehli','blehli','client','enabled','pending'),(4,'Kasima',NULL,'Mendoza','kasima@gmail.com','+69 731 684 2357','2018-05-17','Kasima','kasimamendoza','admin','enabled','accepted');
+INSERT INTO `users` VALUES (1,'Louel',NULL,'Lagasca','2166253@slu.edu.ph','+63 915 205 7397','2018-05-13','Oswell','lmdl.8298','client','enabled','accepted'),(2,'Nikki',NULL,'Marinas','nikki@gmail.com','+63 905 205 7397','2018-05-14','Nikki','nikkipass','provider','enabled','accepted'),(3,'Blessly',NULL,'Carbonell','blessly@gmail.com','+69 472 584 6311','2018-05-16','blehli','blehli','client','enabled','accepted'),(4,'Kasima',NULL,'Mendoza','kasima@gmail.com','+69 731 684 2357','2018-05-17','Kasima','kasimapass','admin','enabled','accepted'),(5,'Carlos',NULL,'Castillo','carlos@sample.com','','2018-05-24','Carlos','nikkiislife','client','enabled','accepted'),(6,'JC',NULL,'Cas','jc@sample.com','09202272959','2018-05-24','JC','ilovenikki','provider','enabled','accepted'),(7,'Eden','Pelagio','Brabante','eden@sample.com','+63 915 220 7397','2018-05-24','xLanceloth','edenbrabante','admin','enabled','accepted'),(8,'Juan','','De La Cruz','sample@sample.com','+63 915 231 7397','2018-05-24','juan','12345678','admin','enabled','accepted'),(9,'as',NULL,'asd','asd@qwe.com','1234527890123','2018-05-24','asd','123456789','provider','disabled','pending'),(10,'123',NULL,'123','as123d@qwe.com','32132456798','2018-05-24','123saqde','123456798','provider','disabled','pending'),(11,'jane',NULL,'doe','janedoe@user.com','09776926802','2018-05-24','janedoe','12345678','client','enabled','accepted'),(13,'asd',NULL,'qwe','s123@sad.com','12345612798','2018-05-24','asd123czx','132456789','provider','disabled','pending'),(14,'john',NULL,'doe','johndoe@user.com','09776926803','2018-05-24','johndoe','98765432','client','enabled','accepted');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -258,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-23  0:50:45
+-- Dump completed on 2018-05-24 16:46:23

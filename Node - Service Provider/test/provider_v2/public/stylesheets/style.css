@@ -1,0 +1,103 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.nav-tabs {
+  margin-bottom: 0;
+}
+
+.pull-left img {
+  height: 10px;
+  width: 10px;
+}
+
+.navbar-toggler {
+  float: right;
+}
+
+.deny{
+  font-size: 30px;
+  font-family: sans-serif;
+  transition: 0.2s;
+  background-image: url(../images/deny.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.deny:hover{
+  filter: brightness(120%) saturate(120%);
+}
+
+.accept{
+  font-size: 20px;
+  font-family: sans-serif;
+  transition: 0.2s;
+  background-image: url(../images/accept.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.accept:hover{
+  filter: brightness(120%) saturate(120%);
+}
+
+.button{
+  background-color: transparent;
+  width: 4vh;
+  height: 6vh;
+  border:none;
+}
+
+.button:hover{
+  cursor: pointer;
+}
+
+.button:focus{
+  outline: none;
+}
+
+.col-1 {
+  padding: 0px;
+}
+
+.content {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 20px 20px 5px 20px;
+}
+
+.col-md-6{
+  padding: 0px 0px 10px 10px;
+}
+
+.container-fluid{
+  width: 90%;
+}
+
+.carousel-inner{
+  width: 100%;
+  margin: auto;
+}
+
+@media screen and (max-width: 1024px){
+  .container-fluid{
+      width: 100%;
+  }
+  .carousel-inner{
+      width: 80%;
+  }
+}
+
+.hide{
+  display: none;
+}

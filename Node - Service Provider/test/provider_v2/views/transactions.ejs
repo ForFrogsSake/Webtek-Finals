@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Truck Rentals</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: beige">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="/<%= id %>/transactions">Truck Rental</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="active nav-item">
+                    <a class="nav-link" href="/<%= id %>/transactions">Transactions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/<%= id %>/trucks">Trucks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/<%= id %>/addTruck">Add Truck</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://rentals.com">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div>
+        <div class="container-fluid" style="padding: 20px;">
+            <div class="row">
+                <div class="col-md" style="margin-bottom: 30px;">
+                    <div class="card" style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);">
+                        <div class="card-header">
+                            <h5 class="text-primary">Client Requests</h5>
+                        </div>
+                        <div class="card-body row" id="client">
+                            <% for(i in transactions) { %>
+                                <div class="col-md-6 content">
+                                    <p>
+                                        <strong>ID:
+                                            <%= transactions[i].truck_id %>
+                                        </strong> |
+                                        <span class="text-info">
+                                            <%= transactions[i].name %>
+                                        </span>
+                                        <% var totalCost = transactions[i].cost*transactions[i].number_of_days; %>
+                                            <% var starting_day = transactions[i].rent_start_day %>
+                                                <% var ending_day = transactions[i].rent_end_day %>
+                                                    <span class="text-success">(₱
+                                                        <%= transactions[i].cost %>/day)</span>
+                                                    <br>
+                                                    <small>
+                                                        <span class="text-secondary">leased by </span>
+                                                        <span class="text-warning">
+                                                            <%= transactions[i].username %>
+                                                        </span>
+                                                        <span class="text-secondary">requested/rented by </span>
+                                                        <span class="text-primary">
+                                                            <%= clients[i].username %>
+                                                        </span>
+                                                        <span class="text-secondary">for: </span>
+                                                        <%= transactions[i].number_of_days %> days
+                                                            <br>
+                                                            <span class="text-secondary">from </span>
+                                                            <%= starting_day %>
+                                                                <span class="text-secondary">to</span>
+                                                                <%= ending_day %>
+                                                                    <br>
+                                                                    <span class="text-secondary">with a total cost of </span>
+                                                                    <span class="text-success">₱
+                                                                        <%= totalCost %>
+                                                                    </span>
+                                                    </small>
+                                                    <br>
+                                                    <div class="row">
+                                                            <div class="col-md-10">
+                                                                <span class="text-secondary">Request Status: </span>
+                                                                <span class="badge">
+                                                                    <%= transactions[i].request_status %>
+                                                                </span>
+                                                            </div>
+                                                        <% if(transactions[i].request_status == 'pending') { %>
+                                                            <% include partials/requests %>
+                                                        <% } %>
+                                                        </div>
+                                                    
+                                    </p>
+                                </div>
+                                <% } %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

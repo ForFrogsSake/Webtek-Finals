@@ -4,9 +4,9 @@
     Author     : HP
 --%>
 
-<%  String adminlink = "//logout/phpfinals";
+<%  String adminlink = "http://rentals.com";
     String logoutlink = "../client/intro.jsp?logout=successfully";
-    String url = "jdbc:mysql://localhost/truck_rentals";%>
+    String url = "jdbc:mysql://192.168.5.81/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
         import ="java.sql.*"
         import ="java.util.*"
@@ -52,6 +52,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="../pics/favicon.png">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -210,7 +211,7 @@
                         <form action="../client/cancellation.jsp?username=<% out.print(username); %>" method="post" target="_self">
                         <input name="transacid" type="hidden" id="transacidnito" value="" >
                         <p id="content"></p>
-                        <h5 class="text-secondary" >Reason of Rent </h5>
+                        <h5 class="text-secondary" >Reason of Cancellation </h5>
                         <input style="height:150px;width: 400px;" name="reason" type="text" id="transacidnito" />
                     </div>
 

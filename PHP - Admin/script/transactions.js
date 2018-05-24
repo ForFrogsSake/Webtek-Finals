@@ -19,10 +19,12 @@ $(document).ready(function(){
         $(".badge-success").parent().parent().parent().parent().hide();
         $(".badge-warning").parent().parent().parent().parent().hide();
         $(".badge-danger").parent().parent().parent().parent().hide();
+        $(".badge-dark").parent().parent().parent().parent().hide();
         $(".badge-success").parent().parent().parent().parent().show("fast");
         $(".badge-warning").parent().parent().parent().parent().show("fast");
+        $(".badge-dark").parent().parent().parent().parent().show("fast");
         $(".badge-danger").parent().parent().parent().parent().show("fast");
-        if($(".badge-success").length == 0 && $(".badge-warning").length == 0 && $(".badge-danger").length == 0){
+        if($(".badge-success").length == 0 && $(".badge-warning").length == 0 && $(".badge-danger").length == 0 && $(".badge-dark").length == 0){
             $("#none").slideDown("fast");
         } else {
             $("#none").hide();
@@ -32,6 +34,7 @@ $(document).ready(function(){
     $(".btn-success").click(function(){
         $(".badge-success").parent().parent().parent().parent().show("fast");
         $(".badge-warning").parent().parent().parent().parent().hide();
+        $(".badge-dark").parent().parent().parent().parent().hide();
         $(".badge-danger").parent().parent().parent().parent().hide();
         if($(".badge-success").length == 0){
             $("#none").slideDown("fast");
@@ -43,8 +46,21 @@ $(document).ready(function(){
     $(".btn-warning").click(function(){
         $(".badge-success").parent().parent().parent().parent().hide();
         $(".badge-warning").parent().parent().parent().parent().show("fast");
+        $(".badge-dark").parent().parent().parent().parent().hide();
         $(".badge-danger").parent().parent().parent().parent().hide();
         if($(".badge-warning").length == 0){
+            $("#none").slideDown("fast");
+        } else {
+            $("#none").hide();
+        }
+    });
+    
+    $(".btn-dark").click(function(){
+        $(".badge-success").parent().parent().parent().parent().hide();
+        $(".badge-warning").parent().parent().parent().parent().hide();
+        $(".badge-dark").parent().parent().parent().parent().show("fast");
+        $(".badge-danger").parent().parent().parent().parent().hide();
+        if($(".badge-dark").length == 0){
             $("#none").slideDown("fast");
         } else {
             $("#none").hide();
@@ -54,6 +70,7 @@ $(document).ready(function(){
     $(".btn-danger").click(function(){
         $(".badge-success").parent().parent().parent().parent().hide();
         $(".badge-warning").parent().parent().parent().parent().hide();
+        $(".badge-dark").parent().parent().parent().parent().hide();
         $(".badge-danger").parent().parent().parent().parent().show("fast");
         if($(".badge-danger").length == 0){
             $("#none").slideDown("fast");

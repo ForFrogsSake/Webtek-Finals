@@ -31,4 +31,25 @@
         th {
             font-size: 18px;
         }
-		
+        
+        #intro::-webkit-scrollbar{
+            width: 5px;
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        #intro::-webkit-scrollbar-thumb{
+            background-color: #c0c0c0;
+            border-radius: 5px;
+        }
+
+        #intro::-webkit-scrollbar-button{
+            display: none;
+        }
+        @media screen and (max-width: 1024px){
+            #intro::-webkit-scrollbar{
+                display: block;
+            }
+        }		

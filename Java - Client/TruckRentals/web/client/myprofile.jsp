@@ -3,9 +3,9 @@
     Created on : 05 16, 18, 7:31:55 AM
     Author     : HP
 --%>
-<%  String adminlink = "//localhost/phpfinals";
-    String logoutlink = "../client/intro.jsp?logout=successfully";     
-    String url = "jdbc:mysql://localhost/truck_rentals";%>
+<%  String adminlink = "http://rentals.com";
+    String logoutlink = "../client/intro.jsp?logout=successfully";
+    String url = "jdbc:mysql://192.168.5.81/truck_rentals";%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
         import= "java.sql.*" %>
 <script>
@@ -20,7 +20,7 @@
         ResultSet rs ;
         String query;
         String username = request.getParameter("username");
-        query = "select concat(fname, ' ', lname) as full , username, email, phone_number, password from users where username='"+username+"';";
+        query = "select * from users inner join address using(user_id) where username='"+username+"';";
         rs = stm.executeQuery(query);
         rs.next();
 
@@ -81,7 +81,7 @@
                     <tbody>
                       <tr>
                         <td>Name:</td>
-                        <td><% out.println(rs.getString("full")); %></td>
+                        <td><% out.println(rs.getString("fname")+ " " +rs.getString("lname")); %></td>
                       </tr>
                       <tr>
                         <td>Username:</td>
@@ -95,9 +95,17 @@
                         <td>Phone number:</td>
                         <td><% out.println(rs.getString("phone_number")); %></td>
                       </tr>
+                      <tr>
+                        <td>Date Registered:</td>
+                        <td><% out.println(rs.getString("date_registered")); %></td>
+                      </tr>
+                      <tr>
+                        <td>Address:</td>
+                        <td><% out.println(rs.getString("house_details")+" "+rs.getString("province")); %></td>
+                      </tr>
                     </tbody>
                   </table>
-                                <!--edit profile-->
+                                <!--edit profile
                 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#edit">Change phone number and Password</button>    
                                 
 
@@ -105,7 +113,7 @@
                 <form action="../client/editProfile.jsp?username=<% out.print(username); %>" method="post" target="_self">
                     <div id="edit" class="collapse" style="background-color: #F1FFFF  ;">
  
-                <!--edit forms-->
+                <!--edit forms
                     <div style="margin:  10px;">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Phone number</label>
@@ -113,7 +121,7 @@
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                    <!--old-->
+                    <!--old
                                 <div class="col-md-4">
                                     <label for="exampleInputPassword1">Current password</label>
                                     <input name="oldpass" class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Truck Rentals</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./public/stylesheets/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script>
+    function validatePassword(confirm_password) {
+      if (confirm_password.value != document.getElementById("password").value) {
+        confirm_password.setCustomValidity("Passwords doesn't match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+  </script>
+</head>
+
+<% if(message.length > 1){ %>
+  <script>
+    alert("<%= message %>");
+  </script>
+  <% } %>
+
+    <body style="background-color: beige">
+      <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="/">Truck Rental</a>
+      </nav>
+      <div class="container">
+        <div class="card card-register mx-2 mt-4">
+          <!--card header-->
+          <div class="card-header">Register a Service Provider Account</div>
+          <div class="card-body">
+            <!--inputs-->
+            <form method="POST" action="/register">
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <label for="exampleInputName">First Name</label>
+                    <input class="form-control" id="fName" name="fName" type="text" placeholder="Enter first name" required="required">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="exampleInputLastName">Last Name</label>
+                    <input class="form-control" id="lName" name="lName" type="text" placeholder="Enter last name" required="required">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input class="form-control" id="username" name="username" type="username" placeholder="Enter username" required="required">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email Address</label>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Enter email" required="required">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Phone Number</label>
+                <input class="form-control" id="number" name="number" type="number" placeholder="Enter phone number" min="11" required="required">
+              </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input class="form-control" id="password" name="password" type="password" placeholder="Password" minlength="8" required="required">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="exampleConfirmPassword">Confirm password</label>
+                    <input class="form-control" name="confirm_password" type="password" placeholder="Confirm password">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-4">
+                    <label for="exampleInputPassword1">House Details</label>
+                    <input class="form-control" name="house_details" type="text" placeholder="House Details(Required)"  required="required">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exampleConfirmPassword">Street</label>
+                    <input class="form-control" name="street" type="text" placeholder="Street">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="exampleInputPassword1">Barangay</label>
+                    <input class="form-control"  name="barangay" type="text" placeholder="Barangay"  required="required">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-4">
+                    <label for="exampleInputPassword1">Municipality</label>
+                    <input class="form-control" name="municipality" type="text" placeholder="Municipality"  required="required">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exampleConfirmPassword">City</label>
+                    <input class="form-control" name="city" type="text" placeholder="Confirm City">
+                  </div>
+               
+                <div class="col-md-4">
+                  <label for="exampleInputPassword1">Provice</label>
+                  <input class="form-control" name="province" type="text" placeholder="Provice" required="required">
+                </div>
+              </div>
+              </div>
+              <!--register button-->
+              <input type="submit" value="Register" class="btn btn-warning btn-block"></input>
+            </form>
+            <!--return to login page-->
+            <div class="text-center">
+              <a class="d-block small mt-4" href="http://rentals.com">Login Page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bootstrap core JavaScript-->
+      <!-- <script src="vendor/jquery/jquery.min.js"></script>
+          <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+      <!-- Core plugin JavaScript-->
+      <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    </body>
+
+</html>
